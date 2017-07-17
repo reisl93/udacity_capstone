@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="advisor.nutrition.nutritionadvisor.ui.overview.UserDayOverviewActivity">
+
+    <ImageView
+        android:id="@+id/background_user_selection"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        app:srcCompat="@color/colorPrimary"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:elevation="@dimen/elevation_level2"
+        android:contentDescription="@string/no_description"
+        />
+
+    <android.support.v7.widget.AppCompatSpinner
+        app:backgroundTint="@color/colorAccent"
+        android:id="@+id/s_select_user"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/grid_size"
+        android:layout_marginStart="@dimen/grid_size"
+        android:layout_marginRight="@dimen/add_user_icon_space"
+        android:layout_marginEnd="@dimen/add_user_icon_space"
+        android:gravity="center"
+        app:layout_constraintTop_toTopOf="@+id/background_user_selection"
+        app:layout_constraintBottom_toBottomOf="@+id/background_user_selection"
+        app:layout_constraintLeft_toLeftOf="@+id/background_user_selection"
+        app:layout_constraintRight_toRightOf="@+id/background_user_selection"
+        android:elevation="@dimen/elevation_level2"
+        tools:text="Your awesome name"
+        />
+
+    <ImageView
+        android:id="@+id/iv_add_user"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:srcCompat="@drawable/ic_add_user"
+        android:gravity="center"
+        android:padding="@dimen/grid_size"
+        app:layout_constraintTop_toTopOf="@+id/background_user_selection"
+        app:layout_constraintBottom_toBottomOf="@+id/background_user_selection"
+        app:layout_constraintRight_toRightOf="@+id/background_user_selection"
+        app:layout_constraintLeft_toRightOf="@+id/s_select_user"
+        android:elevation="@dimen/elevation_level2"
+        android:contentDescription="@string/add_user" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_calender"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginLeft="@dimen/grid_size"
+        android:layout_marginRight="@dimen/grid_size"
+        android:layout_marginBottom="@dimen/grid_size"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/background_user_selection"
+        />
+
+</android.support.constraint.ConstraintLayout>

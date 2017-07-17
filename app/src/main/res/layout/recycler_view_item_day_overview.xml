@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/grid_size"
+    android:elevation="@dimen/elevation_level1">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/cl_root_itm_day_overview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_date_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/grid_size"
+            android:layout_marginStart="@dimen/grid_size"
+            android:textColor="@color/colorPrimaryTextDark"
+            android:textSize="@dimen/textSize_title"
+            app:layout_constraintLeft_toRightOf="@+id/iv_view_day"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="27.07.2017" />
+
+        <ImageView
+            android:id="@+id/iv_view_day"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/view_content_of_the_selected_day"
+            android:padding="@dimen/grid_size_2x"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_proteins"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_date_title"
+            app:srcCompat="@drawable/ic_search" />
+
+        <ImageView
+            android:id="@+id/iv_add_day"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/create_a_plan_for_this_day"
+            android:padding="@dimen/grid_size_2x"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_proteins"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_date_title"
+            app:srcCompat="@drawable/ic_add" />
+
+        <TextView
+            android:id="@+id/tv_carbs"
+            style="@style/text_normal"
+            android:layout_marginTop="@dimen/half_grid_size"
+            android:paddingTop="@dimen/half_grid_size"
+            android:text="@string/carbs_number"
+            android:visibility="invisible"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_date_title"
+            app:layout_constraintTop_toBottomOf="@+id/tv_date_title"
+            tools:text="Carbs: 100" />
+
+        <TextView
+            android:id="@+id/tv_fat"
+            style="@style/text_normal"
+            android:paddingTop="@dimen/half_grid_size"
+            android:text="@string/fat_number"
+            android:visibility="invisible"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_date_title"
+            app:layout_constraintTop_toBottomOf="@+id/tv_carbs"
+            tools:text="Fat: 40" />
+
+        <TextView
+            android:id="@+id/tv_proteins"
+            style="@style/text_normal"
+            android:paddingTop="@dimen/half_grid_size"
+            android:text="@string/prot_number"
+            android:visibility="invisible"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_date_title"
+            app:layout_constraintTop_toBottomOf="@+id/tv_fat"
+            tools:text="Prot: 20" />
+
+
+    </android.support.constraint.ConstraintLayout>
+</android.support.v7.widget.CardView>

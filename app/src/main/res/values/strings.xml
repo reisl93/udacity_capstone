@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">NutritionAdvisor</string>
+    <string name="no_description" />
+    <string name="add_user">add user</string>
+    <string name="create_a_plan_for_this_day">create a plan for this day</string>
+    <string name="view_content_of_the_selected_day">view content of the selected day</string>
+    <string name="carbs_number">Carbs: %d</string>
+    <string name="fat_number">Fat: %d</string>
+    <string name="prot_number">Prot: %d</string>
+    <string name="cancel">Cancel</string>
+    <string name="no_user_added">No user added</string>
+</resources>

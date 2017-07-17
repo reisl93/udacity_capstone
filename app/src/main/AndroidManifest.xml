@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="advisor.nutrition.nutritionadvisor">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".ui.overview.UserDayOverviewActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ui.nutrition.calculator.NutritionCalculatorActivity" />
+
+        <activity
+            android:name=".ui.add.user.AddUserActivity"
+            android:excludeFromRecents="true"
+            android:theme="@style/Theme.AppCompat.Dialog"
+            android:parentActivityName=".ui.overview.UserDayOverviewActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.overview.UserDayOverviewActivity" />
+        </activity>
+
+
+        <provider
+            android:name=".provider.generated.NutritionAdvisorProvider"
+            android:authorities="advisor.nutrition.nutritionadvisor.NutritionAdvisorProvider"
+            android:exported="true"/>
+    </application>
+
+</manifest>
