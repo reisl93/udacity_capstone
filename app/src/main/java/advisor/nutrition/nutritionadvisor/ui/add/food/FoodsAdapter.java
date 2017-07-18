@@ -65,15 +65,19 @@ class FoodsAdapter extends RecyclerView.Adapter<FoodsAdapter.FoodViewHolder> {
         }
 
         void bind(int position) {
-            if (mFoods != null) {
+            if (mFoods != null && position < mFoods.length ) {
                 Food food = mFoods[position];
-                textViewFoodName.setText(food.getName());
-                textViewPortionSize.setText(mContext.getString(R.string.portion_size_s_s,
-                        String.valueOf(food.getPortionSize()).replace("\\.0*",""),
-                        food.getMeasure()));
-                textViewFat.setText(String.valueOf(food.getFat()));
-                textViewCarbs.setText(String.valueOf(food.getCarbs()));
-                textViewProteins.setText(String.valueOf(food.getProteins()));
+                if (food != null) {
+                    textViewFoodName.setText(food.getName());
+                    textViewPortionSize.setText(mContext.getString(R.string.portion_size_s_s,
+                            String.valueOf(food.getPortionSize()).replace("\\.0*",""),
+                            food.getMeasure()));
+                    textViewFat.setText(String.valueOf(food.getFat()));
+                    textViewCarbs.setText(String.valueOf(food.getCarbs()));
+                    textViewProteins.setText(String.valueOf(food.getProteins()));
+                } else {
+                    Timber.e("the food on position %d is null", position);
+                }
             }
         }
 

@@ -2,6 +2,7 @@ package advisor.nutrition.nutritionadvisor.ui.add.food;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -16,7 +17,7 @@ import advisor.nutrition.nutritionadvisor.R;
 import advisor.nutrition.nutritionadvisor.api.Callback;
 import advisor.nutrition.nutritionadvisor.api.ndb.NdbFactory;
 import advisor.nutrition.nutritionadvisor.data.Food;
-import advisor.nutrition.nutritionadvisor.provider.FoodColumns;
+import advisor.nutrition.nutritionadvisor.provider.DataProviderUtils;
 import advisor.nutrition.nutritionadvisor.provider.NutritionAdvisorProvider;
 import advisor.nutrition.nutritionadvisor.provider.UserDayFoodColumns;
 import butterknife.BindView;
@@ -51,7 +52,7 @@ public class AddFoodActivity extends AppCompatActivity implements FoodSelectedLi
         Timber.d("onCreate - entry");
 
         Intent intent = getIntent();
-        if(intent.hasExtra(EXTRA_USER_NAME) && intent.hasExtra(EXTRA_DATE)){
+        if (intent.hasExtra(EXTRA_USER_NAME) && intent.hasExtra(EXTRA_DATE)) {
             mUserName = intent.getStringExtra(EXTRA_USER_NAME);
             mDate = intent.getStringExtra(EXTRA_DATE);
             Timber.d("open nutrition calculator for user %s and date %s", mUserName, mDate);
@@ -69,7 +70,7 @@ public class AddFoodActivity extends AppCompatActivity implements FoodSelectedLi
     }
 
     @OnClick(R.id.iv_search)
-    public void onSearchClicked(){
+    public void onSearchClicked() {
         Timber.d("onSearchClicked - entry");
         final String query = editTextFoodName.getText().toString().trim();
         if (query.length() > 0) {
@@ -88,28 +89,27 @@ public class AddFoodActivity extends AppCompatActivity implements FoodSelectedLi
     }
 
     @Override
-    public void selected(Food food) {
-        Timber.d("adding to user %s on date %s the food %s", mUserName, mDate, food.toString());
+    public void selected(final Food food) {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... params) {
+                Timber.d("adding to user %s on date %s the food %s", mUserName, mDate, food.toString());
 
-        final ContentValues foodEntry = new ContentValues();
-        foodEntry.put(FoodColumns._ID, food.getId());
-        foodEntry.put(FoodColumns.CARBOHYDRATES, food.getCarbs());
-        foodEntry.put(FoodColumns.FAT, food.getFat());
-        foodEntry.put(FoodColumns.PROTEIN, food.getProteins());
-        foodEntry.put(FoodColumns.NAME, food.getName());
-        foodEntry.put(FoodColumns.PORTION_SIZE, food.getPortionSize());
-        foodEntry.put(FoodColumns.MEASURE, food.getMeasure());
-        getContentResolver().insert(NutritionAdvisorProvider.Foods.FOODS, foodEntry);
+                DataProviderUtils.insertFood(AddFoodActivity.this, food);
 
-        final ContentValues userDayFoodEntry = new ContentValues();
-        userDayFoodEntry.put(UserDayFoodColumns.FOOD_ID, food.getId());
-        userDayFoodEntry.put(UserDayFoodColumns.DATE, mDate);
-        userDayFoodEntry.put(UserDayFoodColumns.USER_NAME, mUserName);
-        userDayFoodEntry.put(UserDayFoodColumns.TARGET_PORTIONS, 0);
-        userDayFoodEntry.put(UserDayFoodColumns.CALCULATED_PORTIONS, 0);
-        getContentResolver().insert(NutritionAdvisorProvider.UserDayFood.USER_DAY_FOOD, userDayFoodEntry);
+                final ContentValues userDayFoodEntry = new ContentValues();
+                userDayFoodEntry.put(UserDayFoodColumns.FOOD_ID, food.getId());
+                userDayFoodEntry.put(UserDayFoodColumns.DATE, mDate);
+                userDayFoodEntry.put(UserDayFoodColumns.USER_NAME, mUserName);
+                userDayFoodEntry.put(UserDayFoodColumns.PREFERENCE_PORTIONS, 0);
+                userDayFoodEntry.put(UserDayFoodColumns.CALCULATED_PORTIONS, 0);
+                getContentResolver().insert(NutritionAdvisorProvider.UserDayFood.USER_DAY_FOOD, userDayFoodEntry);
 
-        finish();
+                finish();
+                return null;
+            }
+        }.execute();
+
     }
 
     private void updateUiLoadingTo(boolean loading) {

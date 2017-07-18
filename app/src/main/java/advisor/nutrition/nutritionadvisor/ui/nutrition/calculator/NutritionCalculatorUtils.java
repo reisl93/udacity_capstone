@@ -14,7 +14,7 @@ class NutritionCalculatorUtils {
         food.setFat(cursor.getDouble(NutritionAdvisorProvider.FoodJoins.INDEX_FOOD_FAT));
         food.setProteins(cursor.getDouble(NutritionAdvisorProvider.FoodJoins.INDEX_FOOD_PROTEINS));
         food.setPortionSize(cursor.getDouble(NutritionAdvisorProvider.FoodJoins.INDEX_FOOD_PORTION_SIZE));
-        food.setTargetPortions(cursor.getDouble(NutritionAdvisorProvider.FoodJoins.INDEX_PLAN_TARGET_PORTIONS));
+        food.setPreferencePortions(cursor.getDouble(NutritionAdvisorProvider.FoodJoins.INDEX_PLAN_TARGET_PORTIONS));
         food.setId(cursor.getInt(NutritionAdvisorProvider.FoodJoins.INDEX_PLAN_FOOD_ID));
         food.setName(cursor.getString(NutritionAdvisorProvider.FoodJoins.INDEX_FOOD_NAME));
         food.setMeasure(cursor.getString(NutritionAdvisorProvider.FoodJoins.INDEX_FOOD_MEASURE));

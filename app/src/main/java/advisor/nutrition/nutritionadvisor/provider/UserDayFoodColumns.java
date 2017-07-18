@@ -28,7 +28,7 @@ public interface UserDayFoodColumns {
     String DATE = "date";
 
     @DataType(REAL)
-    String TARGET_PORTIONS = "target_portions";
+    String PREFERENCE_PORTIONS = "preference_portions";
 
     @DataType(REAL)
     String CALCULATED_PORTIONS = "calculated_portions";

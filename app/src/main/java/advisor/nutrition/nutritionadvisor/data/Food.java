@@ -2,7 +2,7 @@ package advisor.nutrition.nutritionadvisor.data;
 
 public class Food {
     private int id;
-    private double targetPortions;
+    private double preferencePortions;
     private double calculatedPortions;
     private double portionSize;
     private String measure;
@@ -11,6 +11,19 @@ public class Food {
     private double proteins;
     private String name;
 
+    public Food(){}
+
+    public Food(int id, double preferencePortions, double calculatedPortions, double portionSize, String measure, double carbs, double fat, double proteins, String name) {
+        this.id = id;
+        this.preferencePortions = preferencePortions;
+        this.calculatedPortions = calculatedPortions;
+        this.portionSize = portionSize;
+        this.measure = measure;
+        this.carbs = carbs;
+        this.fat = fat;
+        this.proteins = proteins;
+        this.name = name;
+    }
 
     public int getId() {
         return id;
@@ -20,12 +33,12 @@ public class Food {
         this.id = id;
     }
 
-    public double getTargetPortions() {
-        return targetPortions;
+    public double getPreferencePortions() {
+        return preferencePortions;
     }
 
-    public void setTargetPortions(double targetPortions) {
-        this.targetPortions = targetPortions;
+    public void setPreferencePortions(double preferencePortions) {
+        this.preferencePortions = preferencePortions;
     }
 
     public double getPortionSize() {
@@ -84,7 +97,7 @@ public class Food {
         Food food = (Food) o;
 
         if (id != food.id) return false;
-        if (Double.compare(food.targetPortions, targetPortions) != 0) return false;
+        if (Double.compare(food.preferencePortions, preferencePortions) != 0) return false;
         if (Double.compare(food.portionSize, portionSize) != 0) return false;
         if (Double.compare(food.carbs, carbs) != 0) return false;
         if (Double.compare(food.fat, fat) != 0) return false;
@@ -99,7 +112,7 @@ public class Food {
         int result;
         long temp;
         result = id;
-        temp = Double.doubleToLongBits(targetPortions);
+        temp = Double.doubleToLongBits(preferencePortions);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         temp = Double.doubleToLongBits(portionSize);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
@@ -116,7 +129,7 @@ public class Food {
 
     @Override
     public String toString() {
-        return "Food{" + "id=" + id + ", targetPortions=" + targetPortions + ", portionSize=" + portionSize + ", measure='" + measure + '\'' + ", carbs=" + carbs + ", fat=" + fat + ", proteins=" + proteins + ", name='" + name + '\'' + '}';
+        return "Food{" + "id=" + id + ", preferencePortions=" + preferencePortions + ", portionSize=" + portionSize + ", measure='" + measure + '\'' + ", carbs=" + carbs + ", fat=" + fat + ", proteins=" + proteins + ", name='" + name + '\'' + '}';
     }
 
     public double getCalculatedPortions() {
@@ -125,5 +138,9 @@ public class Food {
 
     public void setCalculatedPortions(double calculatedPortions) {
         this.calculatedPortions = calculatedPortions;
+    }
+
+    public Food copy(){
+        return new Food(id, preferencePortions, calculatedPortions, portionSize, measure, carbs, fat, proteins, name);
     }
 }

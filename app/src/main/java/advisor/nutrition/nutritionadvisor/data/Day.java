@@ -1,5 +1,6 @@
 package advisor.nutrition.nutritionadvisor.data;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class Day {
@@ -14,6 +15,20 @@ public class Day {
     private int calculatedProteins;
     private int calculatedFat;
     private int calculatedCarbs;
+
+    public Day(){}
+
+    public Day(String date, String userName, List<Food> foodList, int targetProteins, int targetFat, int targetCarbs, int calculatedProteins, int calculatedFat, int calculatedCarbs) {
+        this.date = date;
+        this.userName = userName;
+        this.foodList = foodList;
+        this.targetProteins = targetProteins;
+        this.targetFat = targetFat;
+        this.targetCarbs = targetCarbs;
+        this.calculatedProteins = calculatedProteins;
+        this.calculatedFat = calculatedFat;
+        this.calculatedCarbs = calculatedCarbs;
+    }
 
     public int getTargetProteins() {
         return targetProteins;
@@ -83,7 +98,15 @@ public class Day {
         this.foodList = foodList;
     }
 
-    public List<Food> getFoodList(){
+    public List<Food> getFoodList() {
         return foodList;
+    }
+
+    public Day copy() {
+        List<Food> foods = new LinkedList<>();
+        for (final Food food : foodList) {
+            foods.add(food.copy());
+        }
+        return new Day(date, userName, foods, targetProteins, targetFat, targetCarbs, calculatedProteins, calculatedFat, calculatedCarbs);
     }
 }

@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 import java.util.LinkedList;
 
 import advisor.nutrition.nutritionadvisor.R;
+import advisor.nutrition.nutritionadvisor.calculator.CalculateForDay;
 import advisor.nutrition.nutritionadvisor.data.Day;
 import advisor.nutrition.nutritionadvisor.data.Food;
 import advisor.nutrition.nutritionadvisor.provider.NutritionAdvisorProvider;
@@ -30,7 +32,7 @@ import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import timber.log.Timber;
 
-public class NutritionCalculatorActivity extends AppCompatActivity {
+public class NutritionCalculatorActivity extends AppCompatActivity implements ValueChanged{
 
     public static final String EXTRA_USER_NAME = "Actions.Extra.NutrtionCalculator.user_name";
     public static final String EXTRA_DATE = "Actions.Extra.NutrtionCalculator.date";
@@ -53,6 +55,7 @@ public class NutritionCalculatorActivity extends AppCompatActivity {
     TextView textViewProteinsCalculated;
 
     private Day mDay;
+    private AsyncTask<Void, Void, Void> mAasyncCalculatorTask;
 
 
     @Override
@@ -84,8 +87,43 @@ public class NutritionCalculatorActivity extends AppCompatActivity {
         getSupportLoaderManager().restartLoader(UserDayLoader.LOADER_ID, null, new ThisUserDayLoader(this, date, userName));
 
         recyclerViewFoods.setLayoutManager(new GridLayoutManager(this, getResources().getInteger(R.integer.gv_food_column_count), LinearLayoutManager.VERTICAL, false));
-        foodsAdapter = new FoodsAdapter(this);
+        foodsAdapter = new FoodsAdapter(this, this);
         recyclerViewFoods.setAdapter(foodsAdapter);
+    }
+
+    @Override
+    public void valueChanged() {
+        Timber.d("valueChanged - entry");
+        if(mAasyncCalculatorTask != null){
+            Timber.d("valueChanged - canceling old task");
+            mAasyncCalculatorTask.cancel(true);
+            updateCaluclatedNutritionUI();
+        }
+        mAasyncCalculatorTask = new AsyncTask<Void, Void, Void>() {
+
+            @Override
+            protected Void doInBackground(Void... params) {
+                new CalculateForDay(NutritionCalculatorActivity.this, mDay).startCalculating();
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                updateTargetCalculatedNutritionsUi();
+            }
+        };
+        mAasyncCalculatorTask.execute();
+    }
+
+    private void updateCaluclatedNutritionUI() {
+        if (mDay.getCalculatedCarbs() > 0 || mDay.getCalculatedFat() > 0 || mDay.getCalculatedProteins() > 0) {
+            textViewCarbsCalculated.setText(String.valueOf(mDay.getCalculatedCarbs()));
+            textViewFatCalculated.setText(String.valueOf(mDay.getCalculatedFat()));
+            textViewProteinsCalculated.setText(String.valueOf(mDay.getCalculatedProteins()));
+        }
+
+        foodsAdapter.refresh();
+        mAasyncCalculatorTask = null;
     }
 
     private class ThisUserDayFoodsLoader extends UserDayFoodsLoader {

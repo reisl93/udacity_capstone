@@ -61,7 +61,7 @@ public abstract class UserDayFoodsLoader implements LoaderManager.LoaderCallback
                     foodList.add(food);
                 }
                 food.setId(food_id);
-                food.setTargetPortions(cursor.getDouble(NutritionAdvisorProvider.FoodJoins.INDEX_PLAN_TARGET_PORTIONS));
+                food.setPreferencePortions(cursor.getDouble(NutritionAdvisorProvider.FoodJoins.INDEX_PLAN_TARGET_PORTIONS));
                 food.setCalculatedPortions(cursor.getDouble(NutritionAdvisorProvider.FoodJoins.INDEX_PLAN_CALCULATED_PORTIONS));
                 food.setPortionSize(cursor.getDouble(NutritionAdvisorProvider.FoodJoins.INDEX_FOOD_PORTION_SIZE));
                 food.setCarbs(cursor.getDouble(NutritionAdvisorProvider.FoodJoins.INDEX_FOOD_CARBS));

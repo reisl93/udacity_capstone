@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:elevation="@dimen/elevation_level1"
+    android:layout_margin="@dimen/half_grid_size"
     >
 
     <android.support.constraint.ConstraintLayout
@@ -19,13 +20,21 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Banana" />
 
+        <TextView
+            android:id="@+id/tv_preference"
+            style="@style/text_normal"
+            android:text="@string/preference"
+            app:layout_constraintBottom_toTopOf="@+id/iv_add_portion"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_food_name"
+            app:layout_constraintTop_toBottomOf="@+id/iv_add_portion" />
+
         <ImageView
             android:id="@+id/iv_add_portion"
             android:layout_width="@dimen/food_add_portion_button_size"
             android:layout_height="@dimen/food_add_portion_button_size"
             android:contentDescription="@string/add_portion_to_this_food_for_selected_day"
             android:padding="@dimen/grid_size"
-            app:layout_constraintLeft_toRightOf="@+id/tv_portions_label"
+            app:layout_constraintLeft_toRightOf="@+id/tv_preference"
             app:layout_constraintTop_toBottomOf="@+id/tv_food_name"
             app:srcCompat="@drawable/ic_add" />
 
@@ -36,9 +45,10 @@
             android:contentDescription="@string/subtract_one_portion_to_this_food_for_selected_day"
             app:srcCompat="@drawable/ic_minus"
             android:padding="@dimen/grid_size"
-            app:layout_constraintLeft_toRightOf="@+id/et_portions"
+            app:layout_constraintLeft_toRightOf="@+id/tv_measure_target"
             app:layout_constraintBottom_toTopOf="@+id/iv_add_portion"
-            app:layout_constraintTop_toBottomOf="@+id/iv_add_portion"/>
+            app:layout_constraintTop_toBottomOf="@+id/iv_add_portion"
+            android:layout_marginLeft="8dp" />
 
         <EditText
             android:id="@+id/et_portions"
@@ -51,15 +61,14 @@
             app:layout_constraintLeft_toRightOf="@+id/iv_add_portion"
             app:layout_constraintTop_toBottomOf="@+id/iv_add_portion"
             app:layout_constraintBottom_toTopOf="@+id/iv_add_portion"
-            tools:text="1"
+            tools:text="100.0"
             android:inputType="number" />
 
         <TextView
             android:id="@+id/tv_carbs"
             style="@style/nutrition_text"
             android:background="@drawable/background_carbs"
-            android:layout_marginTop="@dimen/half_grid_size"
-            app:layout_constraintLeft_toLeftOf="@+id/tv_portions_label"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_preference"
             app:layout_constraintTop_toBottomOf="@+id/et_portions"
             tools:text="130" />
 
@@ -84,22 +93,67 @@
             tools:text="80" />
 
         <TextView
-            android:id="@+id/tv_portion_size"
+            android:id="@+id/tv_measure_target"
             style="@style/text_normal"
-            android:text="@string/portion_size_s_s"
-            android:layout_marginTop="@dimen/grid_size"
-            app:layout_constraintLeft_toLeftOf="@+id/tv_food_name"
-            app:layout_constraintTop_toBottomOf="@+id/tv_carbs" />
+            tools:text="G"
+            app:layout_constraintLeft_toRightOf="@+id/et_portions"
+            app:layout_constraintTop_toBottomOf="@+id/et_portions"
+            app:layout_constraintBottom_toTopOf="@+id/et_portions" />
 
         <TextView
-            android:id="@+id/tv_portions_label"
+            android:id="@+id/tv_calculated"
             style="@style/text_normal"
-            tools:text="@string/targetPortions"
-            app:layout_constraintBottom_toTopOf="@+id/iv_add_portion"
-            app:layout_constraintLeft_toLeftOf="@+id/tv_food_name"
-            app:layout_constraintTop_toBottomOf="@+id/iv_add_portion" />
+            android:text="@string/calculated"
+            android:layout_marginTop="@dimen/grid_size_2x"
+            app:layout_constraintTop_toBottomOf="@+id/tv_carbs"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_food_name" />
 
+        <TextView
+            android:id="@+id/tv_portions_calculated"
+            style="@style/text_normal"
+            android:textColor="@color/colorPrimaryTextDark"
+            tools:text="100"
+            app:layout_constraintLeft_toRightOf="@+id/tv_calculated"
+            android:layout_marginLeft="@dimen/grid_size"
+            android:layout_marginRight="@dimen/grid_size"
+            app:layout_constraintTop_toTopOf="@+id/tv_calculated" />
 
+        <TextView
+            android:id="@+id/tv_measure_calculated"
+            style="@style/text_normal"
+            tools:text="G"
+            app:layout_constraintTop_toTopOf="@+id/tv_calculated"
+            app:layout_constraintLeft_toRightOf="@+id/tv_portions_calculated" />
+
+        <TextView
+            android:id="@+id/tv_carbs_calculated"
+            style="@style/nutrition_text"
+            android:layout_marginTop="@dimen/half_grid_size"
+            tools:text="150"
+            android:background="@drawable/background_carbs"
+            app:layout_constraintTop_toBottomOf="@+id/tv_calculated"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_calculated" />
+
+        <TextView
+            android:id="@+id/tv_fat_calculated"
+            style="@style/nutrition_text"
+            tools:text="230"
+            android:background="@drawable/background_fat"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/tv_carbs_calculated"
+            android:layout_marginLeft="@dimen/grid_size_2x"
+            android:layout_marginRight="@dimen/grid_size_2x"
+            app:layout_constraintTop_toTopOf="@+id/tv_carbs_calculated" />
+
+        <TextView
+            android:id="@+id/tv_proteins_calculated"
+            style="@style/nutrition_text"
+            android:background="@drawable/background_protein"
+            tools:text="250"
+            app:layout_constraintLeft_toRightOf="@+id/tv_fat_calculated"
+            android:layout_marginLeft="@dimen/grid_size_2x"
+            android:layout_marginRight="@dimen/grid_size_2x"
+            app:layout_constraintTop_toTopOf="@+id/tv_carbs_calculated" />
 
 
     </android.support.constraint.ConstraintLayout>

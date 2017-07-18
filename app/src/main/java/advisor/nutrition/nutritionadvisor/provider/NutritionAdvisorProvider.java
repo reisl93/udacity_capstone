@@ -60,7 +60,7 @@ public class NutritionAdvisorProvider {
             mapping.put(PLAN_FOOD_ID, NutritionAdvisorDatabase.USER_DAY_FOOD + "." + UserDayFoodColumns.FOOD_ID);
             mapping.put(PLAN_DATE, NutritionAdvisorDatabase.USER_DAY_FOOD + "." + UserDayFoodColumns.DATE);
             mapping.put(PLAN_NAME, NutritionAdvisorDatabase.USER_DAY_FOOD + "." + UserDayFoodColumns.USER_NAME);
-            mapping.put(PLAN_TARGET_PORTIONS, NutritionAdvisorDatabase.USER_DAY_FOOD + "." + UserDayFoodColumns.TARGET_PORTIONS);
+            mapping.put(PLAN_TARGET_PORTIONS, NutritionAdvisorDatabase.USER_DAY_FOOD + "." + UserDayFoodColumns.PREFERENCE_PORTIONS);
             mapping.put(PLAN_CALCULATED_PORTIONS, NutritionAdvisorDatabase.USER_DAY_FOOD + "." + UserDayFoodColumns.CALCULATED_PORTIONS);
 
             mapping.put(FOOD_PROTEINS, NutritionAdvisorDatabase.FOODS + "." + FoodColumns.PROTEIN);
