@@ -4,8 +4,8 @@ import java.util.List;
 
 public class Day {
     private String day;
-    private int userId;
-    private List<Food> foodList;
+    private String userName;
+    private Food[] foodList;
 
 
 
@@ -31,5 +31,29 @@ public class Day {
             proteins += food.getProteins();
         }
         return proteins;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getDay() {
+        return day;
+    }
+
+    public void setDay(String day) {
+        this.day = day;
+    }
+
+    public void setFoodList(Food[] foodList) {
+        this.foodList = foodList;
+    }
+
+    public Food[] getFoodList(){
+        return foodList;
     }
 }

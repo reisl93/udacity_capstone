@@ -11,6 +11,7 @@ import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import advisor.nutrition.nutritionadvisor.R;
+import timber.log.Timber;
 
 
 class UserSpinnerAdapter extends ArrayAdapter<String> implements SpinnerAdapter{
@@ -23,6 +24,13 @@ class UserSpinnerAdapter extends ArrayAdapter<String> implements SpinnerAdapter{
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         final String user = getItem(position);
+
+        if (convertView == null){
+            convertView = LayoutInflater.from(getContext())
+                    .inflate(R.layout.spinner_users, parent, false);
+        }
+
+        Timber.d("showing %s", user);
         if (convertView == null) {
             convertView = LayoutInflater.from(this.getContext())
                     .inflate(R.layout.spinner_users, parent, false);

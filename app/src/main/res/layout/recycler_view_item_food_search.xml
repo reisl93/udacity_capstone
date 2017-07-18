@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:elevation="@dimen/elevation_level1">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/grid_size_2x">
+
+        <TextView
+            android:id="@+id/tv_food_name"
+            style="@style/text_title"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Banana" />
+
+        <TextView
+            android:id="@+id/tv_carbs"
+            style="@style/nutrition_text"
+            android:background="@drawable/background_carbs"
+            android:layout_marginTop="@dimen/half_grid_size"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_food_name"
+            app:layout_constraintTop_toBottomOf="@+id/tv_food_name"
+            tools:text="130" />
+
+        <TextView
+            android:id="@+id/tv_fat"
+            style="@style/nutrition_text"
+            android:background="@drawable/background_fat"
+            android:layout_marginLeft="@dimen/grid_size_2x"
+            android:layout_marginRight="@dimen/grid_size_2x"
+            app:layout_constraintLeft_toRightOf="@+id/tv_carbs"
+            app:layout_constraintTop_toTopOf="@+id/tv_carbs"
+            tools:text="50" />
+
+        <TextView
+            android:id="@+id/tv_proteins"
+            style="@style/nutrition_text"
+            android:background="@drawable/background_protein"
+            android:layout_marginLeft="@dimen/grid_size_2x"
+            android:layout_marginRight="@dimen/grid_size_2x"
+            app:layout_constraintLeft_toRightOf="@+id/tv_fat"
+            app:layout_constraintTop_toTopOf="@+id/tv_carbs"
+            tools:text="80" />
+
+        <TextView
+            android:id="@+id/tv_portion_size"
+            style="@style/text_normal"
+            android:layout_marginTop="@dimen/half_grid_size"
+            android:text="@string/portion_size_s_s"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_food_name"
+            app:layout_constraintTop_toBottomOf="@+id/tv_carbs" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.v7.widget.CardView>

@@ -1,6 +1,8 @@
 package advisor.nutrition.nutritionadvisor.ui;
 
+import android.content.Context;
 import android.view.View;
+import android.widget.Toast;
 
 public class UiUtils {
 

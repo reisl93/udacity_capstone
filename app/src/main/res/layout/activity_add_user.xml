@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Name" />
 
-    <view
+    <View
         android:id="@+id/center_view"
         android:layout_width="1dp"
         android:layout_height="1dp"

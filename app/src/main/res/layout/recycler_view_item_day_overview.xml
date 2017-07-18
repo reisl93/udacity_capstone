@@ -14,12 +14,10 @@
 
         <TextView
             android:id="@+id/tv_date_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/text_title"
             android:layout_marginLeft="@dimen/grid_size"
             android:layout_marginStart="@dimen/grid_size"
             android:textColor="@color/colorPrimaryTextDark"
-            android:textSize="@dimen/textSize_title"
             app:layout_constraintLeft_toRightOf="@+id/iv_view_day"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="27.07.2017" />

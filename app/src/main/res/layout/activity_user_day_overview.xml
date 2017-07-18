@@ -28,6 +28,7 @@
         android:layout_marginRight="@dimen/add_user_icon_space"
         android:layout_marginEnd="@dimen/add_user_icon_space"
         android:gravity="center"
+        android:background="@drawable/background_white"
         app:layout_constraintTop_toTopOf="@+id/background_user_selection"
         app:layout_constraintBottom_toBottomOf="@+id/background_user_selection"
         app:layout_constraintLeft_toLeftOf="@+id/background_user_selection"

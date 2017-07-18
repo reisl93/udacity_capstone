@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:elevation="@dimen/elevation_level1"
+    >
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/grid_size">
+
+        <TextView
+            android:id="@+id/tv_food_name"
+            style="@style/text_title"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Banana" />
+
+        <ImageView
+            android:id="@+id/iv_add_portion"
+            android:layout_width="@dimen/food_add_portion_button_size"
+            android:layout_height="@dimen/food_add_portion_button_size"
+            android:contentDescription="@string/add_portion_to_this_food_for_selected_day"
+            android:padding="@dimen/grid_size"
+            app:layout_constraintLeft_toRightOf="@+id/tv_portions_label"
+            app:layout_constraintTop_toBottomOf="@+id/tv_food_name"
+            app:srcCompat="@drawable/ic_add" />
+
+        <ImageView
+            android:id="@+id/iv_subtract_portion"
+            android:layout_width="@dimen/food_add_portion_button_size"
+            android:layout_height="@dimen/food_add_portion_button_size"
+            android:contentDescription="@string/subtract_one_portion_to_this_food_for_selected_day"
+            app:srcCompat="@drawable/ic_minus"
+            android:padding="@dimen/grid_size"
+            app:layout_constraintLeft_toRightOf="@+id/et_portions"
+            app:layout_constraintBottom_toTopOf="@+id/iv_add_portion"
+            app:layout_constraintTop_toBottomOf="@+id/iv_add_portion"/>
+
+        <EditText
+            android:id="@+id/et_portions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/grid_size_2x"
+            android:paddingRight="@dimen/grid_size_2x"
+            android:textSize="@dimen/textSize_normal"
+            android:textColor="@color/colorPrimaryTextDark"
+            app:layout_constraintLeft_toRightOf="@+id/iv_add_portion"
+            app:layout_constraintTop_toBottomOf="@+id/iv_add_portion"
+            app:layout_constraintBottom_toTopOf="@+id/iv_add_portion"
+            tools:text="1"
+            android:inputType="number" />
+
+        <TextView
+            android:id="@+id/tv_carbs"
+            style="@style/nutrition_text"
+            android:background="@drawable/background_carbs"
+            android:layout_marginTop="@dimen/half_grid_size"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_portions_label"
+            app:layout_constraintTop_toBottomOf="@+id/et_portions"
+            tools:text="130" />
+
+        <TextView
+            android:id="@+id/tv_fat"
+            style="@style/nutrition_text"
+            android:background="@drawable/background_fat"
+            android:layout_marginLeft="@dimen/grid_size_2x"
+            android:layout_marginRight="@dimen/grid_size_2x"
+            app:layout_constraintLeft_toRightOf="@+id/tv_carbs"
+            app:layout_constraintTop_toTopOf="@+id/tv_carbs"
+            tools:text="50" />
+
+        <TextView
+            android:id="@+id/tv_proteins"
+            style="@style/nutrition_text"
+            android:background="@drawable/background_protein"
+            android:layout_marginLeft="@dimen/grid_size_2x"
+            android:layout_marginRight="@dimen/grid_size_2x"
+            app:layout_constraintLeft_toRightOf="@+id/tv_fat"
+            app:layout_constraintTop_toTopOf="@+id/tv_carbs"
+            tools:text="80" />
+
+        <TextView
+            android:id="@+id/tv_portion_size"
+            style="@style/text_normal"
+            android:text="@string/portion_size_s_s"
+            android:layout_marginTop="@dimen/grid_size"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_food_name"
+            app:layout_constraintTop_toBottomOf="@+id/tv_carbs" />
+
+        <TextView
+            android:id="@+id/tv_portions_label"
+            style="@style/text_normal"
+            tools:text="@string/portions"
+            app:layout_constraintBottom_toTopOf="@+id/iv_add_portion"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_food_name"
+            app:layout_constraintTop_toBottomOf="@+id/iv_add_portion" />
+
+
+
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.v7.widget.CardView>

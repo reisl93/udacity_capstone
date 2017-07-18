@@ -18,6 +18,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    buildTypes.each {
+        //it.buildConfigField 'String', 'FAT_SECRET_DB_API_CONSUMER_KEY', fatSecretApiConsumerKey
+        //it.buildConfigField 'String', 'FAT_SECRET_DB_API_SHARED_SECRET', fatSecretApiSharedSecret
+        it.buildConfigField 'String', 'USDA_DB_API_KEY', ndbApiKey
+    }
 }
 
 dependencies {
@@ -26,9 +31,18 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
-    compile('com.sch.calendar:easy-calendar:1.0.1') {
+    /*compile('com.sch.calendar:easy-calendar:1.0.1') {
         exclude group: "com.android.support", module: 'design'
-    }
+    }*/
+    //https://github.com/pakerfeldt/okhttp-signpost
+    /*compile 'se.akerfeldt:okhttp-signpost:1.1.0'
+    compile 'com.squareup.okhttp3:okhttp:3.0.0-RC1'
+    compile 'oauth.signpost:signpost-core:1.2.1.2'*/
+    //http://square.github.io/retrofit/
+    compile 'com.squareup.retrofit2:retrofit:2.3.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
+    compile 'com.jakewharton.timber:timber:4.5.1'
+    compile 'net.ypresto.timbertreeutils:timbertreeutils:1.0.0'
     compile 'net.simonvt.schematic:schematic:0.7.0'
     compile 'com.android.support:design:25.3.1'
     compile 'com.android.support:support-v4:25.3.1'

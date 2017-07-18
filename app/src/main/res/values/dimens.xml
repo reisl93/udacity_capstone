@@ -5,6 +5,8 @@
     <dimen name="elevation_level1">4dp</dimen>
     <dimen name="elevation_level2">8dp</dimen>
 
+    <dimen name="icon_size">50dp</dimen>
+    <dimen name="icon_padding">@dimen/grid_size</dimen>
     <dimen name="add_user_icon_space">50dp</dimen>
     <dimen name="half_grid_size">4dp</dimen>
     <dimen name="calender_add_button_size">80dp</dimen>
@@ -13,4 +15,5 @@
     <dimen name="textSize_normal">18sp</dimen>
     <dimen name="textSize_title">25sp</dimen>
     <dimen name="fab_margin">12dp</dimen>
+    <dimen name="food_add_portion_button_size">40sp</dimen>
 </resources>

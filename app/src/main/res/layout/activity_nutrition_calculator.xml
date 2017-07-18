@@ -13,33 +13,84 @@
         <android.support.design.widget.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_scrollFlags="scroll|snap" />
+            app:layout_scrollFlags="scroll|snap">
 
-        <android.support.v7.widget.Toolbar
-            android:layout_width="match_parent"
-            android:layout_height="?actionBarSize"
-            app:layout_scrollFlags="scroll|snap" />
+            <android.support.v7.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                app:layout_scrollFlags="scroll|snap">
 
-        <android.support.constraint.ConstraintLayout
-            android:id="@+id/t_nutrition_selector"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_scrollFlags="scroll|enterAlways">
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/t_nutrition_selector"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_scrollFlags="scroll|enterAlways">
 
-        </android.support.constraint.ConstraintLayout>
+                    <TextView
+                        android:id="@+id/tv_carbs"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/carbs"
+                        app:layout_constraintBottom_toTopOf="@+id/et_carbs"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/et_carbs" />
+
+                    <EditText
+                        android:id="@+id/et_carbs"
+                        style="@style/nutrition_input"
+                        app:layout_constraintLeft_toRightOf="@+id/tv_carbs"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_fat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/grid_size"
+                        android:layout_marginRight="@dimen/grid_size"
+                        android:text="@string/fat"
+                        app:layout_constraintBottom_toTopOf="@+id/et_fat"
+                        app:layout_constraintLeft_toRightOf="@+id/et_carbs"
+                        app:layout_constraintTop_toBottomOf="@+id/et_fat" />
+
+                    <EditText
+                        android:id="@+id/et_fat"
+                        style="@style/nutrition_input"
+                        app:layout_constraintLeft_toRightOf="@+id/tv_fat"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_prot"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/proteins"
+                        app:layout_constraintBottom_toTopOf="@+id/et_prot"
+                        app:layout_constraintLeft_toRightOf="@+id/et_fat"
+                        app:layout_constraintTop_toBottomOf="@+id/et_prot" />
+
+                    <EditText
+                        android:id="@+id/et_prot"
+                        style="@style/nutrition_input"
+                        app:layout_constraintLeft_toRightOf="@+id/tv_prot"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                </android.support.constraint.ConstraintLayout>
+            </android.support.v7.widget.Toolbar>
+        </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_food_container"
+        android:id="@+id/rv_foods"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <android.support.design.widget.FloatingActionButton
-        android:layout_height="wrap_content"
+        android:id="@+id/fab_add_food"
         android:layout_width="wrap_content"
-        app:srcCompat="@drawable/ic_add"
+        android:layout_height="wrap_content"
         android:layout_margin="@dimen/fab_margin"
+        android:layout_gravity="bottom|right|end"
         app:layout_anchorGravity="bottom|right|end"
-        />
+        app:srcCompat="@drawable/ic_add_white" />
 
 </android.support.design.widget.CoordinatorLayout>

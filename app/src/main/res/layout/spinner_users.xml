@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:id="@+id/tv_user_name"
-    style="@style/text_normal" />
+    android:textSize="@dimen/textSize_normal"
+    android:padding="@dimen/grid_size"
+    android:background="@color/colorPrimary"
+    android:textColor="@android:color/white"
+    tools:text="some name" />

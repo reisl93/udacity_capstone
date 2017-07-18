@@ -32,8 +32,9 @@ abstract class UsersLoader implements LoaderManager.LoaderCallbacks<Cursor> {
         final String[] users;
         if (cursor != null && cursor.moveToFirst()) {
             users = new String[cursor.getCount()];
-            for (int i = 0; cursor.moveToNext(); i++) {
+            for (int i = 0; !cursor.isAfterLast(); i++) {
                 users[i] = cursor.getString(INDEX_NAME);
+                cursor.moveToNext();
             }
         } else {
             users = new String[0];

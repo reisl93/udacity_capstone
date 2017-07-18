@@ -7,4 +7,8 @@
     <color name="colorPrimaryText">#878787</color>
     <color name="colorPrimaryTextDark">#4e4e4e</color>
 
+    <color name="colorProtein">#c8ff3d3d</color>
+    <color name="colorCarbs">#c866e260</color>
+    <color name="colorFat">#c8ff9945</color>
+
 </resources>

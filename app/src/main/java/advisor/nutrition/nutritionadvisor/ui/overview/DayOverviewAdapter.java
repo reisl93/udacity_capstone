@@ -8,6 +8,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Map;
 
 import advisor.nutrition.nutritionadvisor.R;
@@ -18,13 +21,14 @@ import butterknife.ButterKnife;
 
 class DayOverviewAdapter extends RecyclerView.Adapter<DayOverviewAdapter.DayViewHolder>{
 
+    private final DaySelectedCallback mDayCallback;
     private Map<String, Day> mStringToDayMapping;
-    private String userName;
 
     private final Context mContext;
 
-    DayOverviewAdapter(Context mContext) {
+    DayOverviewAdapter(Context mContext, DaySelectedCallback dayCallback) {
         this.mContext = mContext;
+        this.mDayCallback = dayCallback;
     }
 
     @Override
@@ -66,9 +70,10 @@ class DayOverviewAdapter extends RecyclerView.Adapter<DayOverviewAdapter.DayView
             itemView.setOnClickListener(this);
         }
 
-
         void bind(final int position){
-            mPositionDay = "23.12.2017";
+            Calendar day = Calendar.getInstance();
+            day.add(Calendar.DAY_OF_YEAR, position);
+            mPositionDay = new SimpleDateFormat("dd.MM.yyyy").format(day.getTime());
             if (mStringToDayMapping != null && mStringToDayMapping.containsKey(mPositionDay)){
                 bindDayExisting(mStringToDayMapping.get(mPositionDay));
             } else {
@@ -99,7 +104,7 @@ class DayOverviewAdapter extends RecyclerView.Adapter<DayOverviewAdapter.DayView
 
         @Override
         public void onClick(View v) {
-
+            mDayCallback.dayClicked(mPositionDay);
         }
     }
 }
