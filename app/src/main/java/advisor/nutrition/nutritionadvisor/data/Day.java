@@ -3,34 +3,64 @@ package advisor.nutrition.nutritionadvisor.data;
 import java.util.List;
 
 public class Day {
-    private String day;
+    private String date;
     private String userName;
-    private Food[] foodList;
+    private List<Food> foodList;
 
+    private int targetProteins;
+    private int targetFat;
+    private int targetCarbs;
 
+    private int calculatedProteins;
+    private int calculatedFat;
+    private int calculatedCarbs;
 
-    public double getSumCarbs(){
-        double carbs = 0;
-        for (final Food food : foodList){
-            carbs += food.getCarbs();
-        }
-        return carbs;
+    public int getTargetProteins() {
+        return targetProteins;
     }
 
-    public double getSumFat(){
-        double fat = 0;
-        for (final Food food : foodList){
-            fat += food.getFat();
-        }
-        return fat;
+    public void setTargetProteins(int targetProteins) {
+        this.targetProteins = targetProteins;
     }
 
-    public double getSumProteins(){
-        double proteins = 0;
-        for (final Food food : foodList){
-            proteins += food.getProteins();
-        }
-        return proteins;
+    public int getTargetFat() {
+        return targetFat;
+    }
+
+    public void setTargetFat(int targetFat) {
+        this.targetFat = targetFat;
+    }
+
+    public int getTargetCarbs() {
+        return targetCarbs;
+    }
+
+    public void setTargetCarbs(int targetCarbs) {
+        this.targetCarbs = targetCarbs;
+    }
+
+    public int getCalculatedProteins() {
+        return calculatedProteins;
+    }
+
+    public void setCalculatedProteins(int calculatedProteins) {
+        this.calculatedProteins = calculatedProteins;
+    }
+
+    public int getCalculatedFat() {
+        return calculatedFat;
+    }
+
+    public void setCalculatedFat(int calculatedFat) {
+        this.calculatedFat = calculatedFat;
+    }
+
+    public int getCalculatedCarbs() {
+        return calculatedCarbs;
+    }
+
+    public void setCalculatedCarbs(int calculatedCarbs) {
+        this.calculatedCarbs = calculatedCarbs;
     }
 
     public String getUserName() {
@@ -41,19 +71,19 @@ public class Day {
         this.userName = userName;
     }
 
-    public String getDay() {
-        return day;
+    public String getDate() {
+        return date;
     }
 
-    public void setDay(String day) {
-        this.day = day;
+    public void setDate(String date) {
+        this.date = date;
     }
 
-    public void setFoodList(Food[] foodList) {
+    public void setFoodList(List<Food> foodList) {
         this.foodList = foodList;
     }
 
-    public Food[] getFoodList(){
+    public List<Food> getFoodList(){
         return foodList;
     }
 }

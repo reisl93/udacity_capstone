@@ -19,8 +19,11 @@ public class NutritionAdvisorDatabase {
     @Table(UserColumns.class)
     public static final String USERS = "users";
 
-    @Table(UserPlanColumns.class)
-    public static final String USER_PLANS = "user_plans";
+    @Table(UserDayFoodColumns.class)
+    public static final String USER_DAY_FOOD = "user_day_food";
+
+    @Table(UserDayColumns.class)
+    public static final String USER_DAY = "user_food";
 
 
     private static final String[] _MIGRATIONS = {

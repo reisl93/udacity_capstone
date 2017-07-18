@@ -1,4 +1,4 @@
-package advisor.nutrition.nutritionadvisor.ui.overview;
+package advisor.nutrition.nutritionadvisor.ui.loaders;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -11,15 +11,15 @@ import advisor.nutrition.nutritionadvisor.provider.NutritionAdvisorProvider;
 import advisor.nutrition.nutritionadvisor.provider.UserColumns;
 
 @SuppressWarnings("FieldCanBeLocal") // for sake of better code readability
-abstract class UsersLoader implements LoaderManager.LoaderCallbacks<Cursor> {
+public abstract class UsersLoader implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final String[] USERS_PROJECTION = {UserColumns.NAME};
-    static final int LOADER_ID = 221828;
+    public static final int LOADER_ID = 221828;
     private final int INDEX_NAME = 0;
 
     private final Context mContext;
 
-    UsersLoader(Context mContext) {
+    public UsersLoader(Context mContext) {
         this.mContext = mContext;
     }
 
@@ -28,7 +28,7 @@ abstract class UsersLoader implements LoaderManager.LoaderCallbacks<Cursor> {
         return new CursorLoader(mContext, NutritionAdvisorProvider.Users.USERS, USERS_PROJECTION, null, null, null);
     }
 
-    String[] getUsers(final Cursor cursor) {
+    protected String[] getUsers(final Cursor cursor) {
         final String[] users;
         if (cursor != null && cursor.moveToFirst()) {
             users = new String[cursor.getCount()];

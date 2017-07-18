@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import advisor.nutrition.nutritionadvisor.R;
 import advisor.nutrition.nutritionadvisor.ui.add.user.AddUserActivity;
+import advisor.nutrition.nutritionadvisor.ui.loaders.UsersLoader;
 import advisor.nutrition.nutritionadvisor.ui.nutrition.calculator.NutritionCalculatorActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;

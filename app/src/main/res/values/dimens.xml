@@ -12,6 +12,7 @@
     <dimen name="calender_add_button_size">80dp</dimen>
     <dimen name="calender_view_day_button_size">56dp</dimen>
     <dimen name="grid_size_2x">16dp</dimen>
+    <dimen name="textSize_small">14sp</dimen>
     <dimen name="textSize_normal">18sp</dimen>
     <dimen name="textSize_title">25sp</dimen>
     <dimen name="fab_margin">12dp</dimen>

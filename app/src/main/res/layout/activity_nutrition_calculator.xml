@@ -8,7 +8,7 @@
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="?actionBarSize">
+        android:layout_height="100dp">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:layout_width="match_parent"
@@ -16,8 +16,9 @@
             app:layout_scrollFlags="scroll|snap">
 
             <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="?actionBarSize"
+                android:layout_height="match_parent"
                 app:layout_scrollFlags="scroll|snap">
 
                 <android.support.constraint.ConstraintLayout
@@ -27,51 +28,102 @@
                     app:layout_scrollFlags="scroll|enterAlways">
 
                     <TextView
-                        android:id="@+id/tv_carbs"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/tv_user_plan"
+                        style="@style/nutrition_label"
                         android:layout_height="wrap_content"
-                        android:text="@string/carbs"
-                        app:layout_constraintBottom_toTopOf="@+id/et_carbs"
+                        android:text="@string/target"
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_carbs"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/et_carbs" />
+
+                    <TextView
+                        android:id="@+id/tv_carbs"
+                        style="@style/nutrition_label"
+                        android:text="@string/carbs"
+                        app:layout_constraintLeft_toLeftOf="@+id/et_carbs"
+                        app:layout_constraintRight_toRightOf="@+id/et_carbs"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <EditText
                         android:id="@+id/et_carbs"
                         style="@style/nutrition_input"
-                        app:layout_constraintLeft_toRightOf="@+id/tv_carbs"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:layout_marginLeft="@dimen/grid_size"
+                        android:background="@drawable/background_carbs"
+                        app:layout_constraintLeft_toRightOf="@+id/tv_user_plan"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_carbs" />
 
                     <TextView
                         android:id="@+id/tv_fat"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/grid_size"
-                        android:layout_marginRight="@dimen/grid_size"
+                        style="@style/nutrition_label"
                         android:text="@string/fat"
-                        app:layout_constraintBottom_toTopOf="@+id/et_fat"
-                        app:layout_constraintLeft_toRightOf="@+id/et_carbs"
-                        app:layout_constraintTop_toBottomOf="@+id/et_fat" />
+                        app:layout_constraintLeft_toLeftOf="@+id/et_fat"
+                        app:layout_constraintRight_toRightOf="@+id/et_fat"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <EditText
                         android:id="@+id/et_fat"
                         style="@style/nutrition_input"
-                        app:layout_constraintLeft_toRightOf="@+id/tv_fat"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:layout_marginLeft="@dimen/grid_size_2x"
+                        android:background="@drawable/background_fat"
+                        app:layout_constraintLeft_toRightOf="@+id/et_carbs"
+                        app:layout_constraintTop_toBottomOf="@id/tv_fat" />
 
                     <TextView
                         android:id="@+id/tv_prot"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/nutrition_label"
                         android:text="@string/proteins"
-                        app:layout_constraintBottom_toTopOf="@+id/et_prot"
-                        app:layout_constraintLeft_toRightOf="@+id/et_fat"
-                        app:layout_constraintTop_toBottomOf="@+id/et_prot" />
+                        app:layout_constraintLeft_toLeftOf="@+id/et_prot"
+                        app:layout_constraintRight_toRightOf="@+id/et_prot"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <EditText
                         android:id="@+id/et_prot"
                         style="@style/nutrition_input"
-                        app:layout_constraintLeft_toRightOf="@+id/tv_prot"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:layout_marginLeft="@dimen/grid_size_2x"
+                        android:background="@drawable/background_protein"
+                        app:layout_constraintLeft_toRightOf="@+id/et_fat"
+                        app:layout_constraintTop_toBottomOf="@id/tv_prot" />
+
+                    <TextView
+                        android:id="@+id/tv_calculated"
+                        style="@style/nutrition_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/plan"
+                        app:layout_constraintBottom_toTopOf="@+id/tv_carbs_calculated"
+                        app:layout_constraintLeft_toLeftOf="@id/tv_user_plan"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_carbs_calculated" />
+
+                    <TextView
+                        android:id="@+id/tv_carbs_calculated"
+                        style="@style/nutrition_input"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/grid_size"
+                        android:background="@drawable/background_carbs"
+                        app:layout_constraintLeft_toLeftOf="@+id/et_carbs"
+                        app:layout_constraintRight_toRightOf="@+id/et_carbs"
+                        app:layout_constraintTop_toBottomOf="@+id/et_carbs" />
+
+                    <TextView
+                        android:id="@+id/tv_fat_calculated"
+                        style="@style/nutrition_input"
+                        android:layout_width="0dp"
+                        android:layout_marginTop="@dimen/grid_size"
+                        android:background="@drawable/background_fat"
+                        app:layout_constraintLeft_toLeftOf="@+id/et_fat"
+                        app:layout_constraintRight_toRightOf="@+id/et_fat"
+                        app:layout_constraintTop_toBottomOf="@+id/et_fat" />
+
+                    <TextView
+                        android:id="@+id/tv_proteins_calculated"
+                        style="@style/nutrition_input"
+                        android:layout_width="0dp"
+                        android:layout_marginTop="@dimen/grid_size"
+                        android:background="@drawable/background_protein"
+                        app:layout_constraintLeft_toLeftOf="@+id/et_prot"
+                        app:layout_constraintRight_toRightOf="@+id/et_prot"
+                        app:layout_constraintTop_toBottomOf="@+id/et_prot" />
 
 
                 </android.support.constraint.ConstraintLayout>
@@ -82,14 +134,16 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_foods"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp" />
+
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_add_food"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/fab_margin"
         android:layout_gravity="bottom|right|end"
+        android:layout_margin="@dimen/fab_margin"
         app:layout_anchorGravity="bottom|right|end"
         app:srcCompat="@drawable/ic_add_white" />
 

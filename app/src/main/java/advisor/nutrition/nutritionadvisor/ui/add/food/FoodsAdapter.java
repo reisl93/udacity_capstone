@@ -75,7 +75,6 @@ class FoodsAdapter extends RecyclerView.Adapter<FoodsAdapter.FoodViewHolder> {
                 textViewCarbs.setText(String.valueOf(food.getCarbs()));
                 textViewProteins.setText(String.valueOf(food.getProteins()));
             }
-
         }
 
         @Override

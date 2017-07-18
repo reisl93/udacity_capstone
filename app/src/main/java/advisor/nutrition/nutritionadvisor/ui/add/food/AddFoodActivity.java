@@ -2,23 +2,23 @@ package advisor.nutrition.nutritionadvisor.ui.add.food;
 
 import android.content.ContentValues;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import advisor.nutrition.nutritionadvisor.R;
 import advisor.nutrition.nutritionadvisor.api.Callback;
-import advisor.nutrition.nutritionadvisor.api.ndb.NdbApi;
 import advisor.nutrition.nutritionadvisor.api.ndb.NdbFactory;
 import advisor.nutrition.nutritionadvisor.data.Food;
 import advisor.nutrition.nutritionadvisor.provider.FoodColumns;
 import advisor.nutrition.nutritionadvisor.provider.NutritionAdvisorProvider;
-import advisor.nutrition.nutritionadvisor.provider.UserPlanColumns;
+import advisor.nutrition.nutritionadvisor.provider.UserDayFoodColumns;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -35,6 +35,9 @@ public class AddFoodActivity extends AppCompatActivity implements FoodSelectedLi
 
     @BindView(R.id.et_food_name)
     EditText editTextFoodName;
+    @BindView(R.id.pb_loading_indicator)
+    ProgressBar progressBarLoadingIndicator;
+
     private String mUserName;
     private String mDate;
 
@@ -70,9 +73,11 @@ public class AddFoodActivity extends AppCompatActivity implements FoodSelectedLi
         Timber.d("onSearchClicked - entry");
         final String query = editTextFoodName.getText().toString().trim();
         if (query.length() > 0) {
+            updateUiLoadingTo(true);
             NdbFactory.getNdbApi().searchFood(query, new Callback<Food[]>() {
                 @Override
                 public void response(Food[] food) {
+                    updateUiLoadingTo(false);
                     foodsAdapter.updateFoods(food);
                 }
             });
@@ -85,6 +90,7 @@ public class AddFoodActivity extends AppCompatActivity implements FoodSelectedLi
     @Override
     public void selected(Food food) {
         Timber.d("adding to user %s on date %s the food %s", mUserName, mDate, food.toString());
+
         final ContentValues foodEntry = new ContentValues();
         foodEntry.put(FoodColumns._ID, food.getId());
         foodEntry.put(FoodColumns.CARBOHYDRATES, food.getCarbs());
@@ -94,12 +100,25 @@ public class AddFoodActivity extends AppCompatActivity implements FoodSelectedLi
         foodEntry.put(FoodColumns.PORTION_SIZE, food.getPortionSize());
         foodEntry.put(FoodColumns.MEASURE, food.getMeasure());
         getContentResolver().insert(NutritionAdvisorProvider.Foods.FOODS, foodEntry);
-        final ContentValues foodPlanEntry = new ContentValues();
-        foodPlanEntry.put(UserPlanColumns.FOOD_ID, food.getId());
-        foodPlanEntry.put(UserPlanColumns.DATE, mDate);
-        foodPlanEntry.put(UserPlanColumns.USER_NAME, mUserName);
-        foodPlanEntry.put(UserPlanColumns.PORTIONS, food.getPortions());
-        getContentResolver().insert(NutritionAdvisorProvider.UserPlans.USER_PLANS, foodPlanEntry);
+
+        final ContentValues userDayFoodEntry = new ContentValues();
+        userDayFoodEntry.put(UserDayFoodColumns.FOOD_ID, food.getId());
+        userDayFoodEntry.put(UserDayFoodColumns.DATE, mDate);
+        userDayFoodEntry.put(UserDayFoodColumns.USER_NAME, mUserName);
+        userDayFoodEntry.put(UserDayFoodColumns.TARGET_PORTIONS, 0);
+        userDayFoodEntry.put(UserDayFoodColumns.CALCULATED_PORTIONS, 0);
+        getContentResolver().insert(NutritionAdvisorProvider.UserDayFood.USER_DAY_FOOD, userDayFoodEntry);
+
         finish();
+    }
+
+    private void updateUiLoadingTo(boolean loading) {
+        if (loading) {
+            progressBarLoadingIndicator.setVisibility(View.VISIBLE);
+            recyclerViewSearchResult.setVisibility(View.INVISIBLE);
+        } else {
+            progressBarLoadingIndicator.setVisibility(View.INVISIBLE);
+            recyclerViewSearchResult.setVisibility(View.VISIBLE);
+        }
     }
 }

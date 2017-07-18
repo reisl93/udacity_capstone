@@ -94,7 +94,7 @@
         <TextView
             android:id="@+id/tv_portions_label"
             style="@style/text_normal"
-            tools:text="@string/portions"
+            tools:text="@string/targetPortions"
             app:layout_constraintBottom_toTopOf="@+id/iv_add_portion"
             app:layout_constraintLeft_toLeftOf="@+id/tv_food_name"
             app:layout_constraintTop_toBottomOf="@+id/iv_add_portion" />

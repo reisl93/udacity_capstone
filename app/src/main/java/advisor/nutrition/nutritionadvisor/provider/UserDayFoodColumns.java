@@ -9,8 +9,11 @@ import static net.simonvt.schematic.annotation.DataType.Type.INTEGER;
 import static net.simonvt.schematic.annotation.DataType.Type.REAL;
 import static net.simonvt.schematic.annotation.DataType.Type.TEXT;
 
-@PrimaryKeyConstraint(name = "user_plans_keys", columns = {UserPlanColumns.DATE, UserPlanColumns.USER_NAME, UserPlanColumns.FOOD_ID}, onConflict = ConflictResolutionType.REPLACE)
-public interface UserPlanColumns {
+@PrimaryKeyConstraint(
+        name = "user_day_food_keys",
+        columns = {UserDayFoodColumns.DATE, UserDayFoodColumns.USER_NAME, UserDayFoodColumns.FOOD_ID},
+        onConflict = ConflictResolutionType.REPLACE)
+public interface UserDayFoodColumns {
 
     @DataType(INTEGER)
     @NotNull
@@ -25,7 +28,9 @@ public interface UserPlanColumns {
     String DATE = "date";
 
     @DataType(REAL)
-    @NotNull
-    String PORTIONS = "portions";
+    String TARGET_PORTIONS = "target_portions";
+
+    @DataType(REAL)
+    String CALCULATED_PORTIONS = "calculated_portions";
 
 }

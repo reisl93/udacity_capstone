@@ -2,7 +2,8 @@ package advisor.nutrition.nutritionadvisor.data;
 
 public class Food {
     private int id;
-    private double portions;
+    private double targetPortions;
+    private double calculatedPortions;
     private double portionSize;
     private String measure;
     private double carbs;
@@ -19,12 +20,12 @@ public class Food {
         this.id = id;
     }
 
-    public double getPortions() {
-        return portions;
+    public double getTargetPortions() {
+        return targetPortions;
     }
 
-    public void setPortions(double portions) {
-        this.portions = portions;
+    public void setTargetPortions(double targetPortions) {
+        this.targetPortions = targetPortions;
     }
 
     public double getPortionSize() {
@@ -83,7 +84,7 @@ public class Food {
         Food food = (Food) o;
 
         if (id != food.id) return false;
-        if (Double.compare(food.portions, portions) != 0) return false;
+        if (Double.compare(food.targetPortions, targetPortions) != 0) return false;
         if (Double.compare(food.portionSize, portionSize) != 0) return false;
         if (Double.compare(food.carbs, carbs) != 0) return false;
         if (Double.compare(food.fat, fat) != 0) return false;
@@ -98,7 +99,7 @@ public class Food {
         int result;
         long temp;
         result = id;
-        temp = Double.doubleToLongBits(portions);
+        temp = Double.doubleToLongBits(targetPortions);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         temp = Double.doubleToLongBits(portionSize);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
@@ -115,6 +116,14 @@ public class Food {
 
     @Override
     public String toString() {
-        return "Food{" + "id=" + id + ", portions=" + portions + ", portionSize=" + portionSize + ", measure='" + measure + '\'' + ", carbs=" + carbs + ", fat=" + fat + ", proteins=" + proteins + ", name='" + name + '\'' + '}';
+        return "Food{" + "id=" + id + ", targetPortions=" + targetPortions + ", portionSize=" + portionSize + ", measure='" + measure + '\'' + ", carbs=" + carbs + ", fat=" + fat + ", proteins=" + proteins + ", name='" + name + '\'' + '}';
+    }
+
+    public double getCalculatedPortions() {
+        return calculatedPortions;
+    }
+
+    public void setCalculatedPortions(double calculatedPortions) {
+        this.calculatedPortions = calculatedPortions;
     }
 }

@@ -30,7 +30,8 @@ public class NutritionAdvisorProvider {
         public final static String PLAN_FOOD_ID = "user_food_id";
         public final static String PLAN_DATE = "user_date";
         public final static String PLAN_NAME = "user_plans_name";
-        public final static String PLAN_PORTIONS = "plan_portions";
+        public final static String PLAN_TARGET_PORTIONS = "user_target_portions";
+        public final static String PLAN_CALCULATED_PORTIONS = "user_calculated_portions";
         public final static String FOOD_PROTEINS = "food_proteins";
         public final static String FOOD_FAT = "food_fat";
         public final static String FOOD_CARBS = "food_carbs";
@@ -39,7 +40,7 @@ public class NutritionAdvisorProvider {
         public final static String FOOD_NAME = "food_name";
 
         public static String[] JOIN_PROJECTION = new String[]{PLAN_FOOD_ID, PLAN_DATE, PLAN_NAME, FOOD_PROTEINS,
-                FOOD_FAT, FOOD_CARBS, FOOD_MEASURE, FOOD_PORTION_SIZE, PLAN_PORTIONS, FOOD_NAME};
+                FOOD_FAT, FOOD_CARBS, FOOD_MEASURE, FOOD_PORTION_SIZE, PLAN_TARGET_PORTIONS, FOOD_NAME, PLAN_CALCULATED_PORTIONS};
         public final static int INDEX_PLAN_FOOD_ID = 0;
         public final static int INDEX_PLAN_DATE = 1;
         public final static int INDEX_PLAN_NAME = 2;
@@ -48,17 +49,19 @@ public class NutritionAdvisorProvider {
         public final static int INDEX_FOOD_CARBS = 5;
         public final static int INDEX_FOOD_MEASURE = 6;
         public final static int INDEX_FOOD_PORTION_SIZE = 7;
-        public final static int INDEX_PLAN_PORTIONS = 8;
+        public final static int INDEX_PLAN_TARGET_PORTIONS = 8;
         public final static int INDEX_FOOD_NAME = 9;
+        public final static int INDEX_PLAN_CALCULATED_PORTIONS = 10;
 
 
         @MapColumns
-        public static Map<String, String> mapColumns(){
+        public static Map<String, String> mapColumns() {
             HashMap<String, String> mapping = new HashMap<>();
-            mapping.put(PLAN_FOOD_ID, NutritionAdvisorDatabase.USER_PLANS + "." + UserPlanColumns.FOOD_ID);
-            mapping.put(PLAN_DATE, NutritionAdvisorDatabase.USER_PLANS + "." + UserPlanColumns.DATE);
-            mapping.put(PLAN_NAME, NutritionAdvisorDatabase.USER_PLANS + "." + UserPlanColumns.USER_NAME);
-            mapping.put(PLAN_PORTIONS, NutritionAdvisorDatabase.USER_PLANS + "." + UserPlanColumns.PORTIONS);
+            mapping.put(PLAN_FOOD_ID, NutritionAdvisorDatabase.USER_DAY_FOOD + "." + UserDayFoodColumns.FOOD_ID);
+            mapping.put(PLAN_DATE, NutritionAdvisorDatabase.USER_DAY_FOOD + "." + UserDayFoodColumns.DATE);
+            mapping.put(PLAN_NAME, NutritionAdvisorDatabase.USER_DAY_FOOD + "." + UserDayFoodColumns.USER_NAME);
+            mapping.put(PLAN_TARGET_PORTIONS, NutritionAdvisorDatabase.USER_DAY_FOOD + "." + UserDayFoodColumns.TARGET_PORTIONS);
+            mapping.put(PLAN_CALCULATED_PORTIONS, NutritionAdvisorDatabase.USER_DAY_FOOD + "." + UserDayFoodColumns.CALCULATED_PORTIONS);
 
             mapping.put(FOOD_PROTEINS, NutritionAdvisorDatabase.FOODS + "." + FoodColumns.PROTEIN);
             mapping.put(FOOD_FAT, NutritionAdvisorDatabase.FOODS + "." + FoodColumns.FAT);
@@ -71,30 +74,30 @@ public class NutritionAdvisorProvider {
         }
 
         @InexactContentUri(
-                path = "date/*/user/*",
+                path = "FoodJoins/date/*/user/*",
                 name = "FOOD_JOIN_DATE",
                 type = "vnd.android.cursor.item/foods_join_date",
-                join = "JOIN " + NutritionAdvisorDatabase.USER_PLANS + " ON " +
-                        NutritionAdvisorDatabase.FOODS + "." + FoodColumns._ID + " = " + NutritionAdvisorDatabase.USER_PLANS + "." + UserPlanColumns.FOOD_ID,
-                whereColumn = {UserPlanColumns.DATE, UserPlanColumns.USER_NAME},
+                join = "JOIN " + NutritionAdvisorDatabase.USER_DAY_FOOD + " ON " +
+                        NutritionAdvisorDatabase.FOODS + "." + FoodColumns._ID + " = " + NutritionAdvisorDatabase.USER_DAY_FOOD + "." + UserDayFoodColumns.FOOD_ID,
+                whereColumn = {UserDayFoodColumns.DATE, UserDayFoodColumns.USER_NAME},
                 defaultSort = FoodColumns.NAME + " DESC",
-                pathSegment = {1,3})
+                pathSegment = {2, 4})
         public static Uri withUserAndDate(String user, String date) {
-            return Uri.parse(content + AUTHORITY + "/date/" + date + "/user/" + user);
+            return Uri.parse(content + AUTHORITY + "/FoodJoins/date/" + date + "/user/" + user);
         }
 
 
         @InexactContentUri(
-                path = "user/*",
+                path = "FoodJoins/user/*",
                 name = "FOOD_JOIN",
                 type = "vnd.android.cursor.item/foods_join",
                 join = "JOIN " + NutritionAdvisorDatabase.FOODS + " ON " +
-                        NutritionAdvisorDatabase.FOODS + "." + FoodColumns._ID + " = " + NutritionAdvisorDatabase.USER_PLANS + "." + UserPlanColumns.FOOD_ID,
-                whereColumn = UserPlanColumns.USER_NAME,
+                        NutritionAdvisorDatabase.FOODS + "." + FoodColumns._ID + " = " + NutritionAdvisorDatabase.USER_DAY_FOOD + "." + UserDayFoodColumns.FOOD_ID,
+                whereColumn = UserDayFoodColumns.USER_NAME,
                 defaultSort = FoodColumns.NAME + " DESC",
-                pathSegment = 1)
+                pathSegment = 2)
         public static Uri withUser(String user) {
-            return Uri.parse(content + AUTHORITY + "/user/" + user );
+            return Uri.parse(content + AUTHORITY + "/FoodJoins/user/" + user);
         }
     }
 
@@ -108,12 +111,41 @@ public class NutritionAdvisorProvider {
 
     }
 
-    @TableEndpoint(table = NutritionAdvisorDatabase.USER_PLANS)
-    public static class UserPlans {
-        @ContentUri(path = NutritionAdvisorDatabase.USER_PLANS,
-                type = "vnd.android.cursor.dir/user.plans",
-                defaultSort = UserPlanColumns.DATE + " ASC")
-        public static final Uri USER_PLANS = Uri.parse(content + AUTHORITY + "/" + NutritionAdvisorDatabase.USER_PLANS);
+    @TableEndpoint(table = NutritionAdvisorDatabase.USER_DAY)
+    public static class UserDay {
+        @ContentUri(path = NutritionAdvisorDatabase.USER_DAY,
+                type = "vnd.android.cursor.dir/user.day.all",
+                defaultSort = UserDayColumns.DATE + " ASC")
+        public static final Uri USER_DAY = Uri.parse(content + AUTHORITY + "/" + NutritionAdvisorDatabase.USER_DAY);
+
+        @InexactContentUri(
+                path = "UserDay/date/*/user/*",
+                name = "USER_DAY_DATEUSER",
+                type = "vnd.android.cursor.item/user.day.dateuser",
+                whereColumn = {UserDayColumns.DATE, UserDayColumns.USER_NAME},
+                defaultSort = UserDayColumns.USER_NAME + " DESC",
+                pathSegment = {2, 4})
+        public static Uri withUserAndDate(String user, String date) {
+            return Uri.parse(content + AUTHORITY + "/UserDay/date/" + date + "/user/" + user);
+        }
     }
 
+    @TableEndpoint(table = NutritionAdvisorDatabase.USER_DAY_FOOD)
+    public static class UserDayFood {
+        @ContentUri(path = NutritionAdvisorDatabase.USER_DAY_FOOD,
+                type = "vnd.android.cursor.dir/user.day.food.all",
+                defaultSort = UserDayFoodColumns.DATE + " ASC")
+        public static final Uri USER_DAY_FOOD = Uri.parse(content + AUTHORITY + "/" + NutritionAdvisorDatabase.USER_DAY_FOOD);
+
+        @InexactContentUri(
+                path = "UserDayFood/date/*/user/*/food/#",
+                name = "USER_DAY_FOOD_DATEUSERFOOD",
+                type = "vnd.android.cursor.item/user.day.food.dateuserfoodid",
+                whereColumn = {UserDayFoodColumns.DATE, UserDayFoodColumns.USER_NAME, UserDayFoodColumns.FOOD_ID},
+                defaultSort = UserDayFoodColumns.USER_NAME + " DESC",
+                pathSegment = {2, 4, 6})
+        public static Uri withUserAndDateAndFoodId(String user, String date, int foodId) {
+            return Uri.parse(content + AUTHORITY + "/UserDayFood/date/" + date + "/user/" + user + "/food/" + foodId);
+        }
+    }
 }

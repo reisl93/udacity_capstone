@@ -93,13 +93,13 @@ class DayOverviewAdapter extends RecyclerView.Adapter<DayOverviewAdapter.DayView
             mDateTitleTextView.setText(mPositionDay);
             mCarbsTextView.setText(
                     String.format(mContext.getString(R.string.carbs_number),
-                    day.getSumCarbs()));
+                    day.getTargetCarbs()));
             mFatTextView.setText(
                     String.format(mContext.getString(R.string.fat_number),
-                            day.getSumFat()));
+                            day.getTargetFat()));
             mProteinsTextView.setText(
                     String.format(mContext.getString(R.string.prot_number),
-                            day.getSumProteins()));
+                            day.getTargetProteins()));
         }
 
         @Override
