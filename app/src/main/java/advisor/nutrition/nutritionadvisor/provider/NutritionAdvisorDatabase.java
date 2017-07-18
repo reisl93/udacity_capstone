@@ -25,6 +25,9 @@ public class NutritionAdvisorDatabase {
     @Table(UserDayColumns.class)
     public static final String USER_DAY = "user_day";
 
+    @Table(WidgetFoodColumns.class)
+    public static final String WIDGET_FOOD = "widget_food";
+
 
     private static final String[] _MIGRATIONS = {
             //"ALTER TABLE " + FOODS + " ADD COLUMN " + FoodColumns.MEASURE + " TEXT;",

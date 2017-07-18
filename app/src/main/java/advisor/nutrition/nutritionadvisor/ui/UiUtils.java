@@ -22,4 +22,9 @@ public class UiUtils {
         day.set(Calendar.MONTH, month);
         return new SimpleDateFormat("dd.MM.yyyy").format(day.getTime());
     }
+
+    public static String getTodayString(){
+        Calendar instance = Calendar.getInstance();
+        return getDateString(instance.get(Calendar.YEAR), instance.get(Calendar.MONTH), instance.get(Calendar.DAY_OF_MONTH));
+    }
 }

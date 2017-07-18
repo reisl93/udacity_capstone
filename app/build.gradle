@@ -59,6 +59,8 @@ dependencies {
     compile 'net.simonvt.schematic:schematic:0.7.0'
     //code simplifier by annotations
     compile 'com.jakewharton:butterknife:8.7.0'
+    //adMob google play service
+    compile 'com.google.android.gms:play-services-ads:11.0.1'
 
     compile 'com.android.support:design:25.3.1'
     compile 'com.android.support:support-v4:25.3.1'

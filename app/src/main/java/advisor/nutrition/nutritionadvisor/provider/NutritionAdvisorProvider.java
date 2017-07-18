@@ -159,4 +159,12 @@ public class NutritionAdvisorProvider {
             return Uri.parse(content + AUTHORITY + "/UserDayFood/date/" + date + "/user/" + user + "/food/" + foodId);
         }
     }
+
+    @TableEndpoint(table = NutritionAdvisorDatabase.WIDGET_FOOD)
+    public static class WidgetFood {
+        @ContentUri(path = NutritionAdvisorDatabase.WIDGET_FOOD,
+                type = "vnd.android.cursor.dir/widget_foods",
+                defaultSort = WidgetFoodColumns.NAME + " ASC")
+        public static final Uri FOODS = Uri.parse(content + AUTHORITY + "/" + NutritionAdvisorDatabase.WIDGET_FOOD);
+    }
 }

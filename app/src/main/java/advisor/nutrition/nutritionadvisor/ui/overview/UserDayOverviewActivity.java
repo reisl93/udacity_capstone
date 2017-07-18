@@ -47,7 +47,7 @@ public class UserDayOverviewActivity extends AppCompatActivity implements OnDate
 
         mCalendarAdapter = new CalendarAdapter(R.layout.calendar_item_day_overview);
         calendarViewCalendar.setVagueAdapter(mCalendarAdapter);
-        calendarViewCalendar.setScaleEnable(true);
+      //  calendarViewCalendar.setScaleEnable(true);
         calendarViewCalendar.setOnDateClickedListener(this);
 
         userSpinnerAdapter = new UserSpinnerAdapter(this);
@@ -115,6 +115,7 @@ public class UserDayOverviewActivity extends AppCompatActivity implements OnDate
             if (mUsers.length < position) {
                 mUserName = mUsers[position];
                 Timber.d("user %s selected", mUserName);
+                getSupportLoaderManager().restartLoader(DateDayMappingLoader.LOADER_ID, null, new ThisDateDayMappingLoader(UserDayOverviewActivity.this, mUserName));
             }
         }
 

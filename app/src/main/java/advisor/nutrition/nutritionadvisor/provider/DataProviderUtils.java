@@ -3,6 +3,8 @@ package advisor.nutrition.nutritionadvisor.provider;
 import android.content.ContentValues;
 import android.content.Context;
 
+import java.util.List;
+
 import advisor.nutrition.nutritionadvisor.data.Day;
 import advisor.nutrition.nutritionadvisor.data.Food;
 
@@ -31,7 +33,7 @@ public class DataProviderUtils {
         }
     }
 
-    public static void insertFood(Context context, Food food) {
+    public static void insertFood(final Context context, final Food food) {
         final ContentValues foodEntry = new ContentValues();
         foodEntry.put(FoodColumns._ID, food.getId());
         foodEntry.put(FoodColumns.CARBOHYDRATES, food.getCarbs());
@@ -41,5 +43,26 @@ public class DataProviderUtils {
         foodEntry.put(FoodColumns.PORTION_SIZE, food.getPortionSize());
         foodEntry.put(FoodColumns.MEASURE, food.getMeasure());
         context.getContentResolver().insert(NutritionAdvisorProvider.Foods.FOODS, foodEntry);
+    }
+
+    public static void deleteWidgetFoodList(Context context) {
+        context.getContentResolver().delete(NutritionAdvisorProvider.WidgetFood.FOODS, null, null);
+    }
+
+    public static void updateWidgetFoodList(Context context, Day mDay) {
+        List<Food> foodList = mDay.getFoodList();
+        ContentValues[] values = new ContentValues[foodList.size()];
+        for (int i = 0; i < foodList.size(); i++){
+            final Food food = foodList.get(i);
+            ContentValues foodContent = new ContentValues();
+            foodContent.put(WidgetFoodColumns._ID, food.getId());
+            foodContent.put(WidgetFoodColumns.NAME, food.getName());
+            foodContent.put(WidgetFoodColumns.PORTION, food.getCalculatedPortions());
+            foodContent.put(WidgetFoodColumns.MEASURE, food.getMeasure());
+            values[i] = foodContent;
+        }
+        if (foodList.size() > 0) {
+            context.getContentResolver().bulkInsert(NutritionAdvisorProvider.WidgetFood.FOODS, values);
+        }
     }
 }

@@ -49,5 +49,12 @@
         <item name="android:gravity">center</item>
     </style>
 
+    <style name="widget_text">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@android:color/white</item>
+        <item name="android:textColor">@color/colorPrimaryText</item>
+        <item name="android:textSize">@dimen/textSize_small</item>
+    </style>
+
 
 </resources>

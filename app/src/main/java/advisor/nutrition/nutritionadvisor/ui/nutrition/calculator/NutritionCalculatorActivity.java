@@ -21,11 +21,15 @@ import advisor.nutrition.nutritionadvisor.R;
 import advisor.nutrition.nutritionadvisor.calculator.CalculateForDay;
 import advisor.nutrition.nutritionadvisor.data.Day;
 import advisor.nutrition.nutritionadvisor.data.Food;
+import advisor.nutrition.nutritionadvisor.provider.DataProviderUtils;
 import advisor.nutrition.nutritionadvisor.provider.NutritionAdvisorProvider;
 import advisor.nutrition.nutritionadvisor.provider.UserDayColumns;
+import advisor.nutrition.nutritionadvisor.ui.UiUtils;
 import advisor.nutrition.nutritionadvisor.ui.add.food.AddFoodActivity;
 import advisor.nutrition.nutritionadvisor.ui.loaders.UserDayFoodsLoader;
 import advisor.nutrition.nutritionadvisor.ui.loaders.UserDayLoader;
+import advisor.nutrition.nutritionadvisor.ui.widget.FoodListUpdateService;
+import advisor.nutrition.nutritionadvisor.ui.widget.FoodListWidgetService;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -244,6 +248,17 @@ public class NutritionCalculatorActivity extends AppCompatActivity implements Va
         ContentValues values = new ContentValues();
         values.put(column, value);
         getContentResolver().update(NutritionAdvisorProvider.UserDay.withUserAndDate(mDay.getUserName(), mDay.getDate()), values, null, null);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (UiUtils.getTodayString().equals(mDay.getDate())){
+            Timber.i("updating the current widget food");
+            DataProviderUtils.deleteWidgetFoodList(NutritionCalculatorActivity.this);
+            DataProviderUtils.updateWidgetFoodList(NutritionCalculatorActivity.this, mDay);
+            FoodListUpdateService.startActionUpdateFoodListWidgets(this);
+        }
     }
 
     @OnClick(R.id.fab_add_food)
