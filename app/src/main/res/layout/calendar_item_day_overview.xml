@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:elevation="@dimen/elevation_level1">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:padding="@dimen/grid_size">
+
+        <TextView
+            android:id="@+id/tv_day_of_month"
+            style="@style/text_title"
+            android:layout_gravity="center"
+            android:gravity="center"
+            tools:text="23" />
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/nutrition_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:layout_marginTop="-8dp">
+
+            <TextView
+                android:id="@+id/tv_carbs"
+                style="@style/nutrition_text"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="-8dp"
+                android:background="@drawable/background_carbs"
+                android:paddingLeft="@dimen/half_grid_size"
+                android:paddingRight="@dimen/half_grid_size"
+                android:textSize="@dimen/textSize_small"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="240" />
+
+            <TextView
+                android:id="@+id/tv_fat"
+                style="@style/nutrition_text"
+                android:layout_width="wrap_content"
+                android:background="@drawable/background_fat"
+                android:paddingLeft="@dimen/half_grid_size"
+                android:paddingRight="@dimen/half_grid_size"
+                android:textSize="@dimen/textSize_small"
+                app:layout_constraintLeft_toRightOf="@+id/tv_carbs"
+                app:layout_constraintTop_toTopOf="@+id/tv_carbs"
+                tools:text="140" />
+
+            <TextView
+                android:id="@+id/tv_proteins"
+                style="@style/nutrition_text"
+                android:layout_width="wrap_content"
+                android:background="@drawable/background_protein"
+                android:paddingLeft="@dimen/half_grid_size"
+                android:paddingRight="@dimen/half_grid_size"
+                android:textSize="@dimen/textSize_small"
+                app:layout_constraintLeft_toRightOf="parent"
+                app:layout_constraintRight_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_carbs"
+                tools:text="40" />
+        </android.support.constraint.ConstraintLayout>
+    </LinearLayout>
+
+
+</android.support.v7.widget.CardView>

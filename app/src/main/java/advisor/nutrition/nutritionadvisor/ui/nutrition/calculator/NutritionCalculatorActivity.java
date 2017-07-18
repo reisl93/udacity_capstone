@@ -173,6 +173,7 @@ public class NutritionCalculatorActivity extends AppCompatActivity implements Va
                 values.put(UserDayColumns.TARGET_CARBS, 0);
                 values.put(UserDayColumns.TARGET_FAT, 0);
                 values.put(UserDayColumns.TARGET_PROTEINS, 0);
+                Timber.d("writing to db: %s", values.toString());
                 getContentResolver().insert(NutritionAdvisorProvider.UserDay.USER_DAY, values);
 
                 mDay.setTargetCarbs(0);

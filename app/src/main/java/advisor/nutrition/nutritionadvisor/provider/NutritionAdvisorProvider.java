@@ -128,6 +128,17 @@ public class NutritionAdvisorProvider {
         public static Uri withUserAndDate(String user, String date) {
             return Uri.parse(content + AUTHORITY + "/UserDay/date/" + date + "/user/" + user);
         }
+
+        @InexactContentUri(
+                path = "UserDay/user/*",
+                name = "USER_DAY_USER",
+                type = "vnd.android.cursor.item/user.user",
+                whereColumn = UserDayColumns.USER_NAME,
+                defaultSort = UserDayColumns.DATE + " DESC",
+                pathSegment = 2)
+        public static Uri withUser(String user) {
+            return Uri.parse(content + AUTHORITY + "/UserDay/user/" + user);
+        }
     }
 
     @TableEndpoint(table = NutritionAdvisorDatabase.USER_DAY_FOOD)

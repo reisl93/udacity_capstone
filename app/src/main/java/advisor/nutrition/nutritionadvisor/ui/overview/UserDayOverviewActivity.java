@@ -7,15 +7,17 @@ import android.os.Bundle;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatSpinner;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Toast;
 
+import com.sch.calendar.CalendarView;
+import com.sch.calendar.listener.OnDateClickedListener;
+
 import advisor.nutrition.nutritionadvisor.R;
+import advisor.nutrition.nutritionadvisor.ui.UiUtils;
 import advisor.nutrition.nutritionadvisor.ui.add.user.AddUserActivity;
+import advisor.nutrition.nutritionadvisor.ui.loaders.DateDayMappingLoader;
 import advisor.nutrition.nutritionadvisor.ui.loaders.UsersLoader;
 import advisor.nutrition.nutritionadvisor.ui.nutrition.calculator.NutritionCalculatorActivity;
 import butterknife.BindView;
@@ -23,14 +25,15 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import timber.log.Timber;
 
-public class UserDayOverviewActivity extends AppCompatActivity implements DaySelectedCallback {
+public class UserDayOverviewActivity extends AppCompatActivity implements OnDateClickedListener {
 
     @BindView(R.id.s_select_user)
     AppCompatSpinner mUserSpinner;
-    private UserSpinnerAdapter userSpinnerAdapter ;
+    private UserSpinnerAdapter userSpinnerAdapter;
 
-    @BindView(R.id.rv_calender)
-    RecyclerView recyclerViewCalendar;
+    @BindView(R.id.cv_calender)
+    CalendarView calendarViewCalendar;
+    CalendarAdapter mCalendarAdapter;
 
     private String[] mUsers = new String[0];
     private String mUserName;
@@ -42,11 +45,10 @@ public class UserDayOverviewActivity extends AppCompatActivity implements DaySel
         setContentView(R.layout.activity_user_day_overview);
         ButterKnife.bind(this);
 
-        final DayOverviewAdapter adapter = new DayOverviewAdapter(this, this);
-        int columnCount = getResources().getInteger(R.integer.gv_calendar_column_count);
-        recyclerViewCalendar.setLayoutManager(
-                new GridLayoutManager(this, columnCount, LinearLayoutManager.VERTICAL, false));
-        recyclerViewCalendar.setAdapter(adapter);
+        mCalendarAdapter = new CalendarAdapter(R.layout.calendar_item_day_overview);
+        calendarViewCalendar.setVagueAdapter(mCalendarAdapter);
+        calendarViewCalendar.setScaleEnable(true);
+        calendarViewCalendar.setOnDateClickedListener(this);
 
         userSpinnerAdapter = new UserSpinnerAdapter(this);
         mUserSpinner.setOnItemSelectedListener(new UserNameSelectedListener());
@@ -54,9 +56,9 @@ public class UserDayOverviewActivity extends AppCompatActivity implements DaySel
         refreshSpinner(new String[0]);
     }
 
-    private void refreshSpinner(String[] users){
+    private void refreshSpinner(String[] users) {
         mUsers = users;
-        if (mUserName == null && users.length > 0){
+        if (mUserName == null && users.length > 0) {
             mUserName = users[0];
         }
         userSpinnerAdapter.clear();
@@ -71,13 +73,14 @@ public class UserDayOverviewActivity extends AppCompatActivity implements DaySel
     }
 
     @OnClick(R.id.iv_add_user)
-    public void addUserClicked(){
+    public void addUserClicked() {
         startActivity(new Intent(this, AddUserActivity.class));
     }
 
     @Override
-    public void dayClicked(String date) {
-        if (mUserName != null && date != null) {
+    public void onDateClicked(View itemView, int year, int month, int dayOfMonth) {
+        final String date = UiUtils.getDateString(year, month, dayOfMonth);
+        if (mUserName != null) {
             Intent nutritionCalculatorActivityIntent = new Intent(this, NutritionCalculatorActivity.class);
             nutritionCalculatorActivityIntent.putExtra(NutritionCalculatorActivity.EXTRA_USER_NAME, mUserName);
             nutritionCalculatorActivityIntent.putExtra(NutritionCalculatorActivity.EXTRA_DATE, date);
@@ -97,6 +100,7 @@ public class UserDayOverviewActivity extends AppCompatActivity implements DaySel
         @Override
         public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
             refreshSpinner(getUsers(data));
+            getSupportLoaderManager().restartLoader(DateDayMappingLoader.LOADER_ID, null, new ThisDateDayMappingLoader(UserDayOverviewActivity.this, mUserName));
         }
 
         @Override
@@ -108,7 +112,7 @@ public class UserDayOverviewActivity extends AppCompatActivity implements DaySel
     private class UserNameSelectedListener implements android.widget.AdapterView.OnItemSelectedListener {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            if (mUsers.length < position){
+            if (mUsers.length < position) {
                 mUserName = mUsers[position];
                 Timber.d("user %s selected", mUserName);
             }
@@ -117,5 +121,27 @@ public class UserDayOverviewActivity extends AppCompatActivity implements DaySel
         @Override
         public void onNothingSelected(AdapterView<?> parent) { /* intentionally left void */
         }
+    }
+
+    private class ThisDateDayMappingLoader extends DateDayMappingLoader {
+
+        ThisDateDayMappingLoader(Context mContext, String mUserName) {
+            super(mContext, mUserName);
+        }
+
+        @Override
+        public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+            mCalendarAdapter.setmStringToDayMapping(getUserDayMapping(data));
+        }
+
+        @Override
+        public void onLoaderReset(Loader<Cursor> loader) {
+            mCalendarAdapter.setmStringToDayMapping(null);
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
     }
 }

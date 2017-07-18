@@ -40,24 +40,35 @@ dependencies {
     compile 'oauth.signpost:signpost-core:1.2.1.2'*/
     //http://square.github.io/retrofit/
 
+    //calendar in the UserDayOverviewActivity.
     compile('com.sch.calendar:easy-calendar:1.0.1') {
-        exclude group: 'com.android.support'
+        exclude group: 'com.android.support', module: 'gridlayout'
     }
+    compile 'com.android.support:gridlayout-v7:25.3.1'
 
+    //code helpers
     compile 'com.google.guava:guava:22.0-android'
     compile 'com.google.code.findbugs:jsr305:2.0.1'
+    //use of network communication
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
+    //for logging
     compile 'com.jakewharton.timber:timber:4.5.1'
     compile 'net.ypresto.timbertreeutils:timbertreeutils:1.0.0'
+    //easy content provider creation
     compile 'net.simonvt.schematic:schematic:0.7.0'
+    //code simplifier by annotations
+    compile 'com.jakewharton:butterknife:8.7.0'
+
     compile 'com.android.support:design:25.3.1'
     compile 'com.android.support:support-v4:25.3.1'
     compile 'com.android.support:cardview-v7:25.3.1'
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'com.jakewharton:butterknife:8.7.0'
+
     testCompile 'junit:junit:4.12'
+
+    //annotation processors for previous added libraries
     annotationProcessor 'net.simonvt.schematic:schematic-compiler:0.7.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.7.0'
 }

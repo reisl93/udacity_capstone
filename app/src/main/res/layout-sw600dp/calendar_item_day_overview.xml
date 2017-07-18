@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/half_grid_size"
+    android:elevation="@dimen/elevation_level1">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:padding="@dimen/grid_size">
+
+        <TextView
+            android:id="@+id/tv_day_of_month"
+            style="@style/text_title"
+            android:textSize="@dimen/textSize_bigTitle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+
+            tools:text="23" />
+
+        <LinearLayout
+            android:id="@+id/nutrition_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/grid_size"
+            android:layout_marginRight="@dimen/grid_size"
+            android:orientation="vertical"
+            android:visibility="gone"
+            tools:visibility="visible"
+            app:layout_constraintLeft_toRightOf="@+id/tv_day_of_month"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tv_carbs"
+                style="@style/nutrition_text"
+                android:layout_width="match_parent"
+                android:background="@drawable/background_carbs"
+                tools:layout_editor_absoluteY="0dp"
+                tools:text="240" />
+
+            <TextView
+                android:id="@+id/tv_fat"
+                style="@style/nutrition_text"
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/half_grid_size"
+                android:background="@drawable/background_fat"
+                tools:text="140" />
+
+            <TextView
+                android:id="@+id/tv_proteins"
+                style="@style/nutrition_text"
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/half_grid_size"
+                android:background="@drawable/background_protein"
+                tools:text="40" />
+        </LinearLayout>
+
+    </android.support.constraint.ConstraintLayout>
+</android.support.v7.widget.CardView>

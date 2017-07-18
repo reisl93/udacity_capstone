@@ -23,7 +23,7 @@ public class NutritionAdvisorDatabase {
     public static final String USER_DAY_FOOD = "user_day_food";
 
     @Table(UserDayColumns.class)
-    public static final String USER_DAY = "user_food";
+    public static final String USER_DAY = "user_day";
 
 
     private static final String[] _MIGRATIONS = {

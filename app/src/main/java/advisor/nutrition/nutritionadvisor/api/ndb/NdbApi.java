@@ -59,7 +59,7 @@ public class NdbApi {
                                         });
                             }
 
-                            latch.await(5, TimeUnit.SECONDS);
+                            latch.await(15, TimeUnit.SECONDS);
 
                             callback.onResponse(null, Response.success(foods));
                             Timber.d("successfully queried %s", query);

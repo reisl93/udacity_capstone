@@ -51,17 +51,23 @@
         android:elevation="@dimen/elevation_level2"
         android:contentDescription="@string/add_user" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_calender"
+    <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginLeft="@dimen/grid_size"
         android:layout_marginRight="@dimen/grid_size"
-        android:layout_marginBottom="@dimen/grid_size"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/background_user_selection"
-        />
+        app:layout_constraintBottom_toBottomOf="parent">
+        <com.sch.calendar.CalendarView
+            android:id="@+id/cv_calender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:language="english"
+            app:dateDividerColor="@color/colorPrimaryText"
+            android:layout_marginBottom="@dimen/grid_size"
+            />
+    </ScrollView>
 
 </android.support.constraint.ConstraintLayout>
