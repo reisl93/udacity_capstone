@@ -60,7 +60,7 @@ public class CalculateForDay {
                     stepImprovedResult = true;
                 } else {
                     stepImprovedResult = false;
-                    tmpFood.setCalculatedPortions(tmpFood.getCalculatedPortions() - minimumStep);
+                    tmpFood.setCalculatedPortions(Math.max(tmpFood.getCalculatedPortions() - minimumStep,0));
                 }
             }
 
@@ -68,7 +68,7 @@ public class CalculateForDay {
             stepImprovedResult = true;
             while (stepImprovedResult) {
                 double previousDiff = computePercentualTargetToCalculateDiff(tmpDay);
-                tmpFood.setCalculatedPortions(tmpFood.getCalculatedPortions() - minimumStep);
+                tmpFood.setCalculatedPortions(Math.max(tmpFood.getCalculatedPortions() - minimumStep, 0));
                 double newDiff = computePercentualTargetToCalculateDiff(tmpDay);
                 if (previousDiff > newDiff) {
                     stepImprovedResult = true;

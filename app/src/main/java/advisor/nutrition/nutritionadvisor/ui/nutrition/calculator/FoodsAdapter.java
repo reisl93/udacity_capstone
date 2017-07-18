@@ -120,8 +120,8 @@ class FoodsAdapter extends RecyclerView.Adapter<FoodsAdapter.FoodViewHolder> {
                         UiUtils.setVisibility(View.VISIBLE, textViewCarbsCalculated, textViewFatCalculated,
                                 textViewProteinsCalculated, textViewMeasureCalculated,
                                 textViewCalculated, textViewPortionsCalculated);
-                        textViewCarbsCalculated.setText(String.format("%.1f", food.getFat() / portionSize * food.getCalculatedPortions()));
-                        textViewFatCalculated.setText(String.format("%1$.1f", food.getCarbs() / portionSize * food.getCalculatedPortions()));
+                        textViewCarbsCalculated.setText(String.format("%.1f", food.getCarbs() / portionSize * food.getCalculatedPortions()));
+                        textViewFatCalculated.setText(String.format("%1$.1f", food.getFat() / portionSize * food.getCalculatedPortions()));
                         textViewProteinsCalculated.setText(String.format("%1$.1f",food.getProteins() / portionSize * food.getCalculatedPortions()));
                         textViewMeasureCalculated.setText(food.getMeasure());
                         textViewPortionsCalculated.setText(String.valueOf(food.getCalculatedPortions()));

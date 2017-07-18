@@ -13,8 +13,9 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import java.util.concurrent.TimeoutException;
+
 import advisor.nutrition.nutritionadvisor.R;
-import advisor.nutrition.nutritionadvisor.api.Callback;
 import advisor.nutrition.nutritionadvisor.api.ndb.NdbFactory;
 import advisor.nutrition.nutritionadvisor.data.Food;
 import advisor.nutrition.nutritionadvisor.provider.DataProviderUtils;
@@ -23,6 +24,9 @@ import advisor.nutrition.nutritionadvisor.provider.UserDayFoodColumns;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import timber.log.Timber;
 
 public class AddFoodActivity extends AppCompatActivity implements FoodSelectedListener {
@@ -77,9 +81,19 @@ public class AddFoodActivity extends AppCompatActivity implements FoodSelectedLi
             updateUiLoadingTo(true);
             NdbFactory.getNdbApi().searchFood(query, new Callback<Food[]>() {
                 @Override
-                public void response(Food[] food) {
+                public void onResponse(Call<Food[]> call, Response<Food[]> response) {
                     updateUiLoadingTo(false);
-                    foodsAdapter.updateFoods(food);
+                    foodsAdapter.updateFoods(response.body());
+                }
+
+                @Override
+                public void onFailure(Call<Food[]> call, Throwable t) {
+                    updateUiLoadingTo(false);
+                    if (t instanceof TimeoutException){
+                        Toast.makeText(AddFoodActivity.this, "Search request timed out", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(AddFoodActivity.this, "Food not found", Toast.LENGTH_LONG).show();
+                    }
                 }
             });
         } else {

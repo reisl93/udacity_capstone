@@ -5,8 +5,10 @@ import org.junit.Test;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-import advisor.nutrition.nutritionadvisor.api.Callback;
 import advisor.nutrition.nutritionadvisor.data.Food;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
@@ -19,9 +21,14 @@ public class NdbApiTest {
         final CountDownLatch responseReceived = new CountDownLatch(1);
         NdbFactory.getNdbApi().searchFood("butter", new Callback<Food[]>() {
             @Override
-            public void response(Food[] response) {
+            public void onResponse(Call<Food[]> call, Response<Food[]> response) {
                 responseReceived.countDown();
-                assertThat("response_received", response.length, equalTo(10));
+                assertThat("response_received", response.body().length, equalTo(10));
+            }
+
+            @Override
+            public void onFailure(Call<Food[]> call, Throwable t) {
+
             }
         });
         if (!responseReceived.await(15, TimeUnit.SECONDS)){
