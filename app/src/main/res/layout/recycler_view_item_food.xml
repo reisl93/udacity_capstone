@@ -48,7 +48,8 @@
             app:layout_constraintLeft_toRightOf="@+id/tv_measure_target"
             app:layout_constraintBottom_toTopOf="@+id/iv_add_portion"
             app:layout_constraintTop_toBottomOf="@+id/iv_add_portion"
-            android:layout_marginLeft="8dp" />
+            android:layout_marginLeft="@dimen/grid_size"
+            android:layout_marginStart="@dimen/grid_size"/>
 
         <EditText
             android:id="@+id/et_portions"

@@ -1,5 +1,7 @@
 package advisor.nutrition.nutritionadvisor.api.ndb;
 
+import android.support.annotation.NonNull;
+
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
@@ -33,7 +35,7 @@ public class NdbApi {
                 JSON_FORMAT, "0", FOOD_REFERENCE, SORTED_BY_RELEVENCE, NUMBER_OF_SEARCH_ITEMS, query)
                 .enqueue(new Callback<NdbSearchResponse>() {
                     @Override
-                    public void onResponse(Call<NdbSearchResponse> call, Response<NdbSearchResponse> response) {
+                    public void onResponse(@NonNull Call<NdbSearchResponse> call, @NonNull Response<NdbSearchResponse> response) {
                         try {
                             final NdbSearchResponse.FoodList[] items = response.body().getList().getItem();
                             final int itemsLength = items.length;
@@ -47,13 +49,13 @@ public class NdbApi {
                                 NdbApi.this.foodReport(items[i].getNdbNumber(),
                                         new Callback<Food>() {
                                             @Override
-                                            public void onResponse(Call<Food> call, Response<Food> response) {
+                                            public void onResponse(@NonNull Call<Food> call, @NonNull Response<Food> response) {
                                                 foods[index] = response.body();
                                                 latch.countDown();
                                             }
 
                                             @Override
-                                            public void onFailure(Call<Food> call, Throwable t) {
+                                            public void onFailure(@NonNull Call<Food> call, @NonNull Throwable t) {
                                                 //ignore this one
                                             }
                                         });
@@ -73,7 +75,7 @@ public class NdbApi {
                     }
 
                     @Override
-                    public void onFailure(Call<NdbSearchResponse> call, Throwable t) {
+                    public void onFailure(@NonNull Call<NdbSearchResponse> call, @NonNull Throwable t) {
                         Timber.e("failed to query %s in the ndb search query", query);
                         callback.onFailure(null, t);
                     }
@@ -86,7 +88,7 @@ public class NdbApi {
         mNdbiService.foodReport(BuildConfig.USDA_DB_API_KEY, JSON_FORMAT, ndbNumber, REPORT_TYPE_BASIC)
                 .enqueue(new Callback<NdbFoodReportResponse>() {
                     @Override
-                    public void onResponse(Call<NdbFoodReportResponse> call, Response<NdbFoodReportResponse> response) {
+                    public void onResponse(@NonNull Call<NdbFoodReportResponse> call, @NonNull Response<NdbFoodReportResponse> response) {
                         Timber.d("food report for %s was successful", ndbNumber);
                         try {
                             callback.onResponse(null, Response.success(
@@ -99,7 +101,7 @@ public class NdbApi {
                     }
 
                     @Override
-                    public void onFailure(Call<NdbFoodReportResponse> call, Throwable t) {
+                    public void onFailure(@NonNull Call<NdbFoodReportResponse> call, @NonNull Throwable t) {
                         Timber.e("failed to report for food number %s in the ndb report query", ndbNumber);
                     }
                 });

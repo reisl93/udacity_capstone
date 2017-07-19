@@ -1,5 +1,7 @@
 package advisor.nutrition.nutritionadvisor.api.ndb;
 
+import android.support.annotation.NonNull;
+
 import org.junit.Test;
 
 import java.util.concurrent.CountDownLatch;
@@ -21,13 +23,13 @@ public class NdbApiTest {
         final CountDownLatch responseReceived = new CountDownLatch(1);
         NdbFactory.getNdbApi().searchFood("butter", new Callback<Food[]>() {
             @Override
-            public void onResponse(Call<Food[]> call, Response<Food[]> response) {
+            public void onResponse(@NonNull Call<Food[]> call, @NonNull Response<Food[]> response) {
                 responseReceived.countDown();
                 assertThat("response_received", response.body().length, equalTo(10));
             }
 
             @Override
-            public void onFailure(Call<Food[]> call, Throwable t) {
+            public void onFailure(@NonNull Call<Food[]> call, @NonNull Throwable t) {
 
             }
         });

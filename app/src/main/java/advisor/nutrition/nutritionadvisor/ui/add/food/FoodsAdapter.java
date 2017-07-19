@@ -78,6 +78,8 @@ class FoodsAdapter extends RecyclerView.Adapter<FoodsAdapter.FoodViewHolder> {
                 } else {
                     Timber.e("the food on position %d is null", position);
                 }
+            } else {
+                Timber.e("Couldn't update position %d", position);
             }
         }
 

@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -93,13 +94,13 @@ public class AddFoodActivity extends AppCompatActivity implements FoodSelectedLi
             updateUiLoadingTo(true);
             NdbFactory.getNdbApi().searchFood(query, new Callback<Food[]>() {
                 @Override
-                public void onResponse(Call<Food[]> call, Response<Food[]> response) {
+                public void onResponse(@NonNull Call<Food[]> call, @NonNull Response<Food[]> response) {
                     updateUiLoadingTo(false);
                     foodsAdapter.updateFoods(response.body());
                 }
 
                 @Override
-                public void onFailure(Call<Food[]> call, Throwable t) {
+                public void onFailure(@NonNull Call<Food[]> call, @NonNull Throwable t) {
                     updateUiLoadingTo(false);
                     if (t instanceof TimeoutException) {
                         Toast.makeText(AddFoodActivity.this, "Search request timed out", Toast.LENGTH_LONG).show();

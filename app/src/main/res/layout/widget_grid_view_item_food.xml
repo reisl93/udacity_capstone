@@ -23,6 +23,7 @@
 
     <TextView
         android:layout_marginLeft="@dimen/half_grid_size"
+        android:layout_marginStart="@dimen/half_grid_size"
         tools:text="My awesome organge juice"
         android:id="@+id/widget_tv_name"
         style="@style/widget_text"

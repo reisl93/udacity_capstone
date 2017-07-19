@@ -1,8 +1,6 @@
 package advisor.nutrition.nutritionadvisor.ui;
 
-import android.content.Context;
 import android.view.View;
-import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

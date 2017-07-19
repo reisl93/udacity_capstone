@@ -14,6 +14,7 @@
             style="@style/text_normal"
             android:layout_width="0dp"
             android:layout_marginRight="@dimen/grid_size"
+            android:layout_marginEnd="@dimen/grid_size"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/tv_portion"
             app:layout_constraintTop_toTopOf="parent"

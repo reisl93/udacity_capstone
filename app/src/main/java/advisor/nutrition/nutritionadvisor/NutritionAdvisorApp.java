@@ -5,7 +5,6 @@ import android.app.Application;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
 
-import advisor.nutrition.nutritionadvisor.logging.NonDebbugTree;
 import timber.log.Timber;
 
 public class NutritionAdvisorApp extends Application {

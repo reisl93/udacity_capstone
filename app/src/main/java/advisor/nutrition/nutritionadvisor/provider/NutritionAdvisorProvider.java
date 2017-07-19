@@ -87,7 +87,7 @@ public class NutritionAdvisorProvider {
         }
 
 
-        @InexactContentUri(
+        /*@InexactContentUri(
                 path = "FoodJoins/user/*",
                 name = "FOOD_JOIN",
                 type = "vnd.android.cursor.item/foods_join",
@@ -98,7 +98,7 @@ public class NutritionAdvisorProvider {
                 pathSegment = 2)
         public static Uri withUser(String user) {
             return Uri.parse(content + AUTHORITY + "/FoodJoins/user/" + user);
-        }
+        }*/
     }
 
 

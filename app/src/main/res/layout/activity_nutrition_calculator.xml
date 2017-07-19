@@ -38,6 +38,7 @@
                     android:background="@color/colorPrimary"
                     android:paddingBottom="@dimen/grid_size"
                     android:paddingRight="@dimen/grid_size"
+                    android:paddingEnd="@dimen/grid_size"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
@@ -144,13 +145,15 @@
                         android:layout_width="42dp"
                         android:layout_height="42dp"
                         android:layout_marginLeft="@dimen/grid_size_2x"
+                        android:layout_marginStart="@dimen/grid_size_2x"
                         android:background="@drawable/background_accent"
                         android:padding="10dp"
                         android:scaleType="fitCenter"
                         app:layout_constraintBottom_toBottomOf="@+id/tv_proteins_calculated"
                         app:layout_constraintRight_toRightOf="@+id/cl_nutrition_overview"
                         app:layout_constraintTop_toTopOf="@+id/et_prot"
-                        app:srcCompat="@drawable/ic_list" />
+                        app:srcCompat="@drawable/ic_list"
+                        android:contentDescription="@string/show_list_of_foods" />
                 </android.support.constraint.ConstraintLayout>
             </android.support.v7.widget.Toolbar>
         </android.support.design.widget.CollapsingToolbarLayout>

@@ -45,7 +45,6 @@ public class FoodListActivity extends AppCompatActivity {
 
     @BindView(R.id.adView)
     AdView adView;
-    private boolean mAdViewStarted;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

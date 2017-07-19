@@ -3,8 +3,6 @@ package advisor.nutrition.nutritionadvisor.api.ndb;
 import advisor.nutrition.nutritionadvisor.api.ndb.data.NdbFoodReportResponse;
 import advisor.nutrition.nutritionadvisor.api.ndb.data.NdbSearchResponse;
 import retrofit2.Call;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 

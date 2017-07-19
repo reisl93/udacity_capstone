@@ -15,7 +15,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.HitBuilders;
@@ -50,7 +49,7 @@ public class NutritionCalculatorActivity extends AppCompatActivity implements Va
 
     @BindView(R.id.rv_foods)
     RecyclerView recyclerViewFoods;
-    private FoodsAdapter foodsAdapter;
+    private FoodsAdapter mFoodsAdapter;
 
     @BindView(R.id.et_carbs)
     EditText editTextCarbs;
@@ -105,8 +104,8 @@ public class NutritionCalculatorActivity extends AppCompatActivity implements Va
         getSupportLoaderManager().restartLoader(UserDayLoader.LOADER_ID, null, new ThisUserDayLoader(this, date, userName));
 
         recyclerViewFoods.setLayoutManager(new GridLayoutManager(this, getResources().getInteger(R.integer.gv_food_column_count), LinearLayoutManager.VERTICAL, false));
-        foodsAdapter = new FoodsAdapter(this, this);
-        recyclerViewFoods.setAdapter(foodsAdapter);
+        mFoodsAdapter = new FoodsAdapter(this, this);
+        recyclerViewFoods.setAdapter(mFoodsAdapter);
 
         Tracker tracker = ((NutritionAdvisorApp) getApplication()).getDefaultTracker();
         tracker.setScreenName(AddFoodActivity.class.getSimpleName());
@@ -142,6 +141,7 @@ public class NutritionCalculatorActivity extends AppCompatActivity implements Va
 
                 @Override
                 protected void onPostExecute(Void aVoid) {
+                    mFoodsAdapter.refresh();
                     updateTargetCalculatedNutritionsUi();
                 }
             };
@@ -164,7 +164,7 @@ public class NutritionCalculatorActivity extends AppCompatActivity implements Va
             Timber.d("making button invisible");
         }
 
-        foodsAdapter.refresh();
+        mFoodsAdapter.refresh();
     }
 
     private class ThisUserDayFoodsLoader extends UserDayFoodsLoader {
@@ -175,14 +175,14 @@ public class NutritionCalculatorActivity extends AppCompatActivity implements Va
         @Override
         public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
             updateDay(mDay, data);
-            foodsAdapter.updateDay(mDay);
+            mFoodsAdapter.updateDay(mDay);
             updateTargetCalculatedNutritionsUi();
             updateCaluclatedNutritionUI();
         }
 
         @Override
         public void onLoaderReset(Loader<Cursor> loader) {
-            foodsAdapter.updateDay(null);
+            mFoodsAdapter.updateDay(null);
         }
     }
 

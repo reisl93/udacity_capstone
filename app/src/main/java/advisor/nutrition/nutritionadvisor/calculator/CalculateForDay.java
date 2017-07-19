@@ -1,6 +1,5 @@
 package advisor.nutrition.nutritionadvisor.calculator;
 
-import android.content.ContentValues;
 import android.content.Context;
 
 import java.util.ArrayList;
@@ -10,7 +9,6 @@ import java.util.List;
 import advisor.nutrition.nutritionadvisor.data.Day;
 import advisor.nutrition.nutritionadvisor.data.Food;
 import advisor.nutrition.nutritionadvisor.provider.DataProviderUtils;
-import advisor.nutrition.nutritionadvisor.provider.NutritionAdvisorProvider;
 import timber.log.Timber;
 
 public class CalculateForDay {
@@ -18,7 +16,7 @@ public class CalculateForDay {
     private final Day mDay;
     private final Context mContext;
 
-    private int minimumStep = 25;
+    private final static int MINIMUMSTEP = 25;
 
     public CalculateForDay(Context context, Day mDay) {
         this.mDay = mDay;
@@ -53,14 +51,14 @@ public class CalculateForDay {
             boolean stepImprovedResult = true;
             while (stepImprovedResult) {
                 double previousDiff = computePercentualTargetToCalculateDiff(tmpDay);
-                tmpFood.setCalculatedPortions(tmpFood.getCalculatedPortions() + minimumStep);
+                tmpFood.setCalculatedPortions(tmpFood.getCalculatedPortions() + MINIMUMSTEP);
                 double newDiff = computePercentualTargetToCalculateDiff(tmpDay);
                 //diff gets smaller??
                 if (previousDiff > newDiff) {
                     stepImprovedResult = true;
                 } else {
                     stepImprovedResult = false;
-                    tmpFood.setCalculatedPortions(Math.max(tmpFood.getCalculatedPortions() - minimumStep,0));
+                    tmpFood.setCalculatedPortions(Math.max(tmpFood.getCalculatedPortions() - MINIMUMSTEP,0));
                 }
             }
 
@@ -68,13 +66,13 @@ public class CalculateForDay {
             stepImprovedResult = true;
             while (stepImprovedResult) {
                 double previousDiff = computePercentualTargetToCalculateDiff(tmpDay);
-                tmpFood.setCalculatedPortions(Math.max(tmpFood.getCalculatedPortions() - minimumStep, 0));
+                tmpFood.setCalculatedPortions(Math.max(tmpFood.getCalculatedPortions() - MINIMUMSTEP, 0));
                 double newDiff = computePercentualTargetToCalculateDiff(tmpDay);
                 if (previousDiff > newDiff) {
                     stepImprovedResult = true;
                 } else {
                     stepImprovedResult = false;
-                    tmpFood.setCalculatedPortions(tmpFood.getCalculatedPortions() + minimumStep);
+                    tmpFood.setCalculatedPortions(tmpFood.getCalculatedPortions() + MINIMUMSTEP);
                 }
             }
 

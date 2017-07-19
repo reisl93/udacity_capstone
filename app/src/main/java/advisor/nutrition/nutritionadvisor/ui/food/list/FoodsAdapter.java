@@ -39,6 +39,7 @@ class FoodsAdapter extends RecyclerView.Adapter<FoodsAdapter.FoodViewHolder> {
     void updateFoodList(List<Food> foodList) {
         this.mFoodList = foodList;
         Timber.d("updated list with length %d", getItemCount());
+        notifyDataSetChanged();
     }
 
     class FoodViewHolder extends RecyclerView.ViewHolder {

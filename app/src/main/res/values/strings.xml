@@ -1,19 +1,12 @@
 <resources>
     <string name="app_name">NutritionAdvisor</string>
-    <string name="no_description" />
     <string name="add_user">add user</string>
-    <string name="create_a_plan_for_this_day">create a plan for this date</string>
-    <string name="view_content_of_the_selected_day">view content of the selected date</string>
-    <string name="carbs_number">Carbs: %d</string>
-    <string name="fat_number">Fat: %d</string>
-    <string name="prot_number">Prot: %d</string>
     <string name="cancel">Cancel</string>
     <string name="no_user_added">No user added</string>
     <string name="carbs">Carbs</string>
     <string name="fat">Fat</string>
     <string name="proteins">Proteins</string>
     <string name="portion_size_s_s" formatted="true">per %1$s%2$s</string>
-    <string name="preferencePortions">Portions:</string>
     <string name="add_portion_to_this_food_for_selected_day">add portion to this food for selected date</string>
     <string name="subtract_one_portion_to_this_food_for_selected_day">Subtract one portion to this food for selected date</string>
     <string name="search_for_food">search for food</string>
@@ -22,4 +15,5 @@
     <string name="plan">Plan:</string>
     <string name="preference">Preference:</string>
     <string name="please_add_foods_for_today">please add food for today</string>
+    <string name="show_list_of_foods">show list of foods</string>
 </resources>

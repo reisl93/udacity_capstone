@@ -49,7 +49,7 @@ class FoodsAdapter extends RecyclerView.Adapter<FoodsAdapter.FoodViewHolder> {
      * since we have a reference to the mDay, a change may happen without notice.
      * Therefore this method has to be called.
      */
-    public void refresh(){
+    void refresh(){
         notifyDataSetChanged();
     }
 
@@ -109,7 +109,7 @@ class FoodsAdapter extends RecyclerView.Adapter<FoodsAdapter.FoodViewHolder> {
                     Food food = mDay.getFoodList().get(position);
                     double portionSize = food.getPortionSize();
                     textViewFoodName.setText(food.getName());
-                    ;
+
                     textViewMeasureTarget.setText(food.getMeasure());
                     textViewFat.setText(String.format("%.1f", food.getFat() / portionSize * food.getPreferencePortions()));
                     textViewCarbs.setText(String.format("%.1f", food.getCarbs() / portionSize * food.getPreferencePortions()));
