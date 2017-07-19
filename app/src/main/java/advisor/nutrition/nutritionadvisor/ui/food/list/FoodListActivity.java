@@ -44,6 +44,7 @@ public class FoodListActivity extends AppCompatActivity {
 
     @BindView(R.id.adView)
     AdView adView;
+    private boolean mAdViewStarted;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +75,24 @@ public class FoodListActivity extends AppCompatActivity {
         adView.loadAd(adRequest);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        adView.resume();
+    }
+
+    @Override
+    protected void onPause() {
+        adView.pause();
+        super.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        adView.destroy();
+        super.onDestroy();
+    }
+
     private class ThisUserDayFoodsLoader extends UserDayFoodsLoader {
         ThisUserDayFoodsLoader(Context mContext, String mDate, String mUsername) {
             super(mContext, mDate, mUsername);
@@ -88,6 +107,8 @@ public class FoodListActivity extends AppCompatActivity {
             textViewCarbs.setText(String.valueOf(day.getCalculatedCarbs()));
             textViewFat.setText(String.valueOf(day.getCalculatedFat()));
             textViewProteins.setText(String.valueOf(day.getCalculatedProteins()));
+
+            Timber.d("updated displayed calculated nutritions: c:%d, f:%d, p:%d", day.getCalculatedCarbs(), day.getCalculatedFat(), day.getCalculatedProteins());
         }
 
         @Override

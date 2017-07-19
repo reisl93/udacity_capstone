@@ -19,6 +19,7 @@ import javax.annotation.Nullable;
 import advisor.nutrition.nutritionadvisor.data.Day;
 import advisor.nutrition.nutritionadvisor.data.Food;
 import advisor.nutrition.nutritionadvisor.provider.NutritionAdvisorProvider;
+import timber.log.Timber;
 
 @SuppressWarnings("FieldCanBeLocal")
 public abstract class UserDayFoodsLoader implements LoaderManager.LoaderCallbacks<Cursor> {
@@ -30,6 +31,7 @@ public abstract class UserDayFoodsLoader implements LoaderManager.LoaderCallback
     private final String mUsername;
 
     public UserDayFoodsLoader(Context mContext, String mDate, String mUsername) {
+        Timber.d("creating loader with %s %s", mDate, mUsername);
         this.mContext = mContext;
         this.mDate = mDate;
         this.mUsername = mUsername;

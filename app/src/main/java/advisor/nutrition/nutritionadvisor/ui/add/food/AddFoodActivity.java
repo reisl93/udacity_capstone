@@ -77,8 +77,8 @@ public class AddFoodActivity extends AppCompatActivity implements FoodSelectedLi
         recyclerViewSearchResult.setLayoutManager(
                 new GridLayoutManager(this, getResources().getInteger(R.integer.gv_food_column_count), LinearLayoutManager.VERTICAL, false));
 
-        NutritionAdvisorApp application = (NutritionAdvisorApp) getApplication();
-        mTracker = application.getDefaultTracker();
+        mTracker = ((NutritionAdvisorApp) getApplication()).getDefaultTracker();
+        mTracker.setScreenName(AddFoodActivity.class.getSimpleName());
 
         getSupportActionBar().setTitle("Search for food");
 

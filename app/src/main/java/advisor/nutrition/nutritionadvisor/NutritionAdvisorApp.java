@@ -1,13 +1,11 @@
 package advisor.nutrition.nutritionadvisor;
 
 import android.app.Application;
-import android.util.Log;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
 
-import net.ypresto.timbertreeutils.CrashlyticsLogTree;
-
+import advisor.nutrition.nutritionadvisor.logging.NonDebbugTree;
 import timber.log.Timber;
 
 public class NutritionAdvisorApp extends Application {
@@ -22,7 +20,8 @@ public class NutritionAdvisorApp extends Application {
         if (BuildConfig.DEBUG) {
             Timber.plant(new Timber.DebugTree());
         } else {
-            Timber.plant(new CrashlyticsLogTree(Log.INFO));
+            Timber.plant(new Timber.DebugTree());
+            //Timber.plant(new NonDebbugTree());
         }
 
         sAnalytics = GoogleAnalytics.getInstance(this);

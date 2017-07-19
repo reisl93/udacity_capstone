@@ -17,8 +17,13 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+
 import java.util.LinkedList;
 
+import advisor.nutrition.nutritionadvisor.NutritionAdvisorApp;
 import advisor.nutrition.nutritionadvisor.R;
 import advisor.nutrition.nutritionadvisor.calculator.CalculateForDay;
 import advisor.nutrition.nutritionadvisor.data.Day;
@@ -102,6 +107,11 @@ public class NutritionCalculatorActivity extends AppCompatActivity implements Va
         recyclerViewFoods.setLayoutManager(new GridLayoutManager(this, getResources().getInteger(R.integer.gv_food_column_count), LinearLayoutManager.VERTICAL, false));
         foodsAdapter = new FoodsAdapter(this, this);
         recyclerViewFoods.setAdapter(foodsAdapter);
+
+        Tracker tracker = ((NutritionAdvisorApp) getApplication()).getDefaultTracker();
+        tracker.setScreenName(AddFoodActivity.class.getSimpleName());
+        tracker.send(new HitBuilders.ScreenViewBuilder().build());
+        GoogleAnalytics.getInstance(this).dispatchLocalHits();
 
         updateCaluclatedNutritionUI();
     }
@@ -241,6 +251,7 @@ public class NutritionCalculatorActivity extends AppCompatActivity implements Va
     @Override
     protected void onResume() {
         super.onResume();
+        Timber.i("resume nutrition caluclator with %s %s", mDay.getDate(), mDay.getUserName());
         getSupportLoaderManager().restartLoader(UserDayFoodsLoader.LOADER_ID, null, new ThisUserDayFoodsLoader(this, mDay.getDate(), mDay.getUserName()));
     }
 
