@@ -17,8 +17,9 @@ import com.google.android.gms.ads.AdView;
 
 import advisor.nutrition.nutritionadvisor.R;
 import advisor.nutrition.nutritionadvisor.data.Day;
+import advisor.nutrition.nutritionadvisor.provider.UserDayColumns;
 import advisor.nutrition.nutritionadvisor.ui.loaders.UserDayFoodsLoader;
-import advisor.nutrition.nutritionadvisor.ui.nutrition.calculator.NutritionCalculatorActivity;
+import advisor.nutrition.nutritionadvisor.ui.loaders.UserDayLoader;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import timber.log.Timber;
@@ -64,12 +65,15 @@ public class FoodListActivity extends AppCompatActivity {
             Toast.makeText(this, "Internal Error occurred", Toast.LENGTH_LONG).show();
         }
 
+        getSupportActionBar().setElevation(0);
+
         foodsAdapter = new FoodsAdapter();
         recyclerViewSearchResult.setAdapter(foodsAdapter);
         recyclerViewSearchResult.setLayoutManager(
                 new GridLayoutManager(this, getResources().getInteger(R.integer.gv_food_list_column_count), LinearLayoutManager.VERTICAL, false));
 
         getSupportLoaderManager().restartLoader(UserDayFoodsLoader.LOADER_ID, null, new ThisUserDayFoodsLoader(this, mDate, mUserName));
+        getSupportLoaderManager().restartLoader(UserDayLoader.LOADER_ID, null, new ThisUserDayLoader(this, mDate, mUserName));
 
         AdRequest adRequest = new AdRequest.Builder().build();
         adView.loadAd(adRequest);
@@ -93,6 +97,29 @@ public class FoodListActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
+    private class ThisUserDayLoader extends UserDayLoader {
+
+        ThisUserDayLoader(Context mContext, String mDate, String mUsername) {
+            super(mContext, mDate, mUsername);
+        }
+
+        @Override
+        public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+            if (data != null && data.moveToFirst()) {
+                textViewCarbs.setText(String.valueOf((data.getInt(data.getColumnIndex(UserDayColumns.CALCULATED_CARBS)))));
+                textViewFat.setText(String.valueOf(data.getInt(data.getColumnIndex(UserDayColumns.CALCULATED_FAT))));
+                textViewProteins.setText(String.valueOf(data.getInt(data.getColumnIndex(UserDayColumns.CALCULATED_PROTEINS))));
+
+                Timber.d("updated displayed calculated nutritions.");
+            }
+        }
+
+        @Override
+        public void onLoaderReset(Loader<Cursor> loader) {
+            Timber.w("failed to load calculated porteins, fat & carbs");
+        }
+    }
+
     private class ThisUserDayFoodsLoader extends UserDayFoodsLoader {
         ThisUserDayFoodsLoader(Context mContext, String mDate, String mUsername) {
             super(mContext, mDate, mUsername);
@@ -103,17 +130,12 @@ public class FoodListActivity extends AppCompatActivity {
             Day day = new Day();
             updateDay(day, data);
             foodsAdapter.updateFoodList(day.getFoodList());
-
-            textViewCarbs.setText(String.valueOf(day.getCalculatedCarbs()));
-            textViewFat.setText(String.valueOf(day.getCalculatedFat()));
-            textViewProteins.setText(String.valueOf(day.getCalculatedProteins()));
-
-            Timber.d("updated displayed calculated nutritions: c:%d, f:%d, p:%d", day.getCalculatedCarbs(), day.getCalculatedFat(), day.getCalculatedProteins());
         }
 
         @Override
         public void onLoaderReset(Loader<Cursor> loader) {
             foodsAdapter.updateFoodList(null);
+            Timber.w("failed to load food.");
         }
     }
 

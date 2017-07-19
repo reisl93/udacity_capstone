@@ -31,7 +31,6 @@
                 android:value=".ui.overview.UserDayOverviewActivity" />
         </activity>
         <activity
-            android:launchMode="singleTop"
             android:name=".ui.add.user.AddUserActivity"
             android:excludeFromRecents="true"
             android:parentActivityName=".ui.overview.UserDayOverviewActivity"
@@ -41,7 +40,6 @@
                 android:value=".ui.overview.UserDayOverviewActivity" />
         </activity>
         <activity
-            android:launchMode="singleTop"
             android:name=".ui.add.food.AddFoodActivity"
             android:parentActivityName=".ui.nutrition.calculator.NutritionCalculatorActivity">
             <meta-data
@@ -49,7 +47,6 @@
                 android:value=".ui.nutrition.calculator.NutritionCalculatorActivity" />
         </activity>
         <activity
-            android:launchMode="singleTop"
             android:name=".ui.food.list.FoodListActivity"
             android:parentActivityName=".ui.nutrition.calculator.NutritionCalculatorActivity">
             <meta-data

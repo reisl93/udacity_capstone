@@ -114,6 +114,8 @@ public class NutritionCalculatorActivity extends AppCompatActivity implements Va
         GoogleAnalytics.getInstance(this).dispatchLocalHits();
 
         updateCaluclatedNutritionUI();
+
+        getSupportActionBar().setElevation(0);
     }
 
     @Override
@@ -289,6 +291,7 @@ public class NutritionCalculatorActivity extends AppCompatActivity implements Va
         ContentValues values = new ContentValues();
         values.put(column, value);
         getContentResolver().update(NutritionAdvisorProvider.UserDay.withUserAndDate(mDay.getUserName(), mDay.getDate()), values, null, null);
+        Timber.i("DB-Table-UserDay: wrote to column %s the value %d", column, value );
     }
 
     @Override

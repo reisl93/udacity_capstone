@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_collapseMode="pin"
-                android:elevation="@dimen/elevation_level2"
+                android:elevation="@dimen/elevation_level1"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
                 <android.support.constraint.ConstraintLayout
                     android:layout_width="match_parent"

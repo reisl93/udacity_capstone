@@ -53,6 +53,8 @@ public class UserDayOverviewActivity extends AppCompatActivity implements OnDate
         mUserSpinner.setOnItemSelectedListener(new UserNameSelectedListener());
         mUserSpinner.setAdapter(userSpinnerAdapter);
         refreshSpinner(new String[0]);
+
+        getSupportActionBar().setElevation(0);
     }
 
     private void refreshSpinner(String[] users) {
