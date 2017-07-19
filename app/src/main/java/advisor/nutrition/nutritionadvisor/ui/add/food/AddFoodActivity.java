@@ -13,8 +13,12 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+
 import java.util.concurrent.TimeoutException;
 
+import advisor.nutrition.nutritionadvisor.NutritionAdvisorApp;
 import advisor.nutrition.nutritionadvisor.R;
 import advisor.nutrition.nutritionadvisor.api.ndb.NdbFactory;
 import advisor.nutrition.nutritionadvisor.data.Food;
@@ -34,6 +38,7 @@ public class AddFoodActivity extends AppCompatActivity implements FoodSelectedLi
     public static final String EXTRA_USER_NAME = "Actions.Extra.AddFood.user_name";
     public static final String EXTRA_DATE = "Actions.Extra.AddFood.date";
 
+
     @BindView(R.id.rv_food_search_result)
     RecyclerView recyclerViewSearchResult;
     private FoodsAdapter foodsAdapter;
@@ -45,6 +50,8 @@ public class AddFoodActivity extends AppCompatActivity implements FoodSelectedLi
 
     private String mUserName;
     private String mDate;
+
+    private Tracker mTracker;
 
 
     @Override
@@ -70,6 +77,11 @@ public class AddFoodActivity extends AppCompatActivity implements FoodSelectedLi
         recyclerViewSearchResult.setLayoutManager(
                 new GridLayoutManager(this, getResources().getInteger(R.integer.gv_food_column_count), LinearLayoutManager.VERTICAL, false));
 
+        NutritionAdvisorApp application = (NutritionAdvisorApp) getApplication();
+        mTracker = application.getDefaultTracker();
+
+        getSupportActionBar().setTitle("Search for food");
+
         Timber.d("onCreate - exit");
     }
 
@@ -89,13 +101,20 @@ public class AddFoodActivity extends AppCompatActivity implements FoodSelectedLi
                 @Override
                 public void onFailure(Call<Food[]> call, Throwable t) {
                     updateUiLoadingTo(false);
-                    if (t instanceof TimeoutException){
+                    if (t instanceof TimeoutException) {
                         Toast.makeText(AddFoodActivity.this, "Search request timed out", Toast.LENGTH_LONG).show();
                     } else {
                         Toast.makeText(AddFoodActivity.this, "Food not found", Toast.LENGTH_LONG).show();
                     }
                 }
             });
+
+            mTracker.send(new HitBuilders.EventBuilder()
+                    .setCategory("Food")
+                    .setAction("searched")
+                    .setLabel(query)
+                    .build());
+
         } else {
             Timber.d("user queried without any input data");
             Toast.makeText(this, "please enter a search query", Toast.LENGTH_SHORT).show();
@@ -118,6 +137,12 @@ public class AddFoodActivity extends AppCompatActivity implements FoodSelectedLi
                 userDayFoodEntry.put(UserDayFoodColumns.PREFERENCE_PORTIONS, 0);
                 userDayFoodEntry.put(UserDayFoodColumns.CALCULATED_PORTIONS, 0);
                 getContentResolver().insert(NutritionAdvisorProvider.UserDayFood.USER_DAY_FOOD, userDayFoodEntry);
+
+                mTracker.send(new HitBuilders.EventBuilder()
+                        .setCategory("Food")
+                        .setAction("added")
+                        .setLabel(String.valueOf(food.getId()))
+                        .build());
 
                 finish();
                 return null;

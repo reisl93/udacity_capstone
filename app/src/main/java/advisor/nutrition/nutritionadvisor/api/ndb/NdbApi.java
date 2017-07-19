@@ -78,6 +78,7 @@ public class NdbApi {
                         callback.onFailure(null, t);
                     }
                 });
+        Timber.d("search exit");
     }
 
     public void foodReport(final String ndbNumber, final Callback<Food> callback) {

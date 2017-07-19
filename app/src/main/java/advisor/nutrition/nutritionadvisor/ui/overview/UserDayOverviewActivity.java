@@ -111,7 +111,7 @@ public class UserDayOverviewActivity extends AppCompatActivity implements OnDate
     private class UserNameSelectedListener implements android.widget.AdapterView.OnItemSelectedListener {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            if (mUsers.length < position) {
+            if (mUsers.length > position) {
                 mUserName = mUsers[position];
                 Timber.d("user %s selected", mUserName);
                 getSupportLoaderManager().restartLoader(DateDayMappingLoader.LOADER_ID, null, new ThisDateDayMappingLoader(UserDayOverviewActivity.this, mUserName));
@@ -138,10 +138,5 @@ public class UserDayOverviewActivity extends AppCompatActivity implements OnDate
         public void onLoaderReset(Loader<Cursor> loader) {
             mCalendarAdapter.setmStringToDayMapping(null);
         }
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
     }
 }

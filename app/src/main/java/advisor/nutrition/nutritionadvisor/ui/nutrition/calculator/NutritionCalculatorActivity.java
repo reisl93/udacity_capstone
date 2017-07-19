@@ -11,7 +11,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,8 +40,8 @@ import timber.log.Timber;
 
 public class NutritionCalculatorActivity extends AppCompatActivity implements ValueChanged{
 
-    public static final String EXTRA_USER_NAME = "Actions.Extra.NutrtionCalculator.user_name";
-    public static final String EXTRA_DATE = "Actions.Extra.NutrtionCalculator.date";
+    public static final String EXTRA_USER_NAME = "Actions.Extra.NutritionCalculator.user_name";
+    public static final String EXTRA_DATE = "Actions.Extra.NutritionCalculator.date";
 
     @BindView(R.id.rv_foods)
     RecyclerView recyclerViewFoods;
@@ -58,6 +60,9 @@ public class NutritionCalculatorActivity extends AppCompatActivity implements Va
     @BindView(R.id.tv_proteins_calculated)
     TextView textViewProteinsCalculated;
 
+    @BindView(R.id.ib_show_list)
+    ImageButton imageButtonShowFoodList;
+
     private Day mDay;
     private AsyncTask<Void, Void, Void> mAasyncCalculatorTask;
 
@@ -74,6 +79,10 @@ public class NutritionCalculatorActivity extends AppCompatActivity implements Va
         if(intent.hasExtra(EXTRA_USER_NAME) && intent.hasExtra(EXTRA_DATE)){
             userName = intent.getStringExtra(EXTRA_USER_NAME);
             date = intent.getStringExtra(EXTRA_DATE);
+            Timber.d("open nutrition calculator for user %s and date %s", userName, date);
+        } else if (savedInstanceState != null && savedInstanceState.containsKey(EXTRA_USER_NAME) && savedInstanceState.containsKey(EXTRA_DATE)) {
+            userName = savedInstanceState.getString(EXTRA_USER_NAME);
+            date = savedInstanceState.getString(EXTRA_DATE);
             Timber.d("open nutrition calculator for user %s and date %s", userName, date);
         } else {
             finish();
@@ -93,6 +102,8 @@ public class NutritionCalculatorActivity extends AppCompatActivity implements Va
         recyclerViewFoods.setLayoutManager(new GridLayoutManager(this, getResources().getInteger(R.integer.gv_food_column_count), LinearLayoutManager.VERTICAL, false));
         foodsAdapter = new FoodsAdapter(this, this);
         recyclerViewFoods.setAdapter(foodsAdapter);
+
+        updateCaluclatedNutritionUI();
     }
 
     @Override
@@ -133,8 +144,15 @@ public class NutritionCalculatorActivity extends AppCompatActivity implements Va
             textViewProteinsCalculated.setText(String.valueOf(mDay.getCalculatedProteins()));
         }
 
+        if (mDay.getFoodList().size() > 0){
+            imageButtonShowFoodList.setVisibility(View.VISIBLE);
+            Timber.d("making button visible");
+        } else {
+            imageButtonShowFoodList.setVisibility(View.INVISIBLE);
+            Timber.d("making button invisible");
+        }
+
         foodsAdapter.refresh();
-        mAasyncCalculatorTask = null;
     }
 
     private class ThisUserDayFoodsLoader extends UserDayFoodsLoader {
@@ -146,6 +164,8 @@ public class NutritionCalculatorActivity extends AppCompatActivity implements Va
         public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
             updateDay(mDay, data);
             foodsAdapter.updateDay(mDay);
+            updateTargetCalculatedNutritionsUi();
+            updateCaluclatedNutritionUI();
         }
 
         @Override
@@ -269,6 +289,13 @@ public class NutritionCalculatorActivity extends AppCompatActivity implements Va
             DataProviderUtils.updateWidgetFoodList(NutritionCalculatorActivity.this, mDay);
             FoodListUpdateService.startActionUpdateFoodListWidgets(this);
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putString(EXTRA_DATE, mDay.getDate());
+        outState.putString(EXTRA_USER_NAME, mDay.getUserName());
+        super.onSaveInstanceState(outState);
     }
 
     @OnClick(R.id.ib_show_list)

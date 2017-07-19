@@ -9,7 +9,8 @@
     <android.support.design.widget.AppBarLayout
         android:id="@+id/main.appbar"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="64dp"
+        android:elevation="@dimen/elevation_level2"
         android:fitsSystemWindows="true"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
@@ -65,7 +66,7 @@
                 <TextView
                     android:id="@+id/tv_carbs_calculated"
                     style="@style/nutrition_input"
-                    android:layout_marginTop="@dimen/grid_size"
+                    android:layout_marginTop="@dimen/half_grid_size"
                     android:background="@drawable/background_carbs"
                     app:layout_constraintLeft_toLeftOf="@+id/tv_carbs"
                     app:layout_constraintTop_toBottomOf="@+id/tv_carbs" />
@@ -73,7 +74,7 @@
                 <TextView
                     android:id="@+id/tv_fat_calculated"
                     style="@style/nutrition_input"
-                    android:layout_marginTop="@dimen/grid_size"
+                    android:layout_marginTop="@dimen/half_grid_size"
                     android:background="@drawable/background_fat"
                     app:layout_constraintLeft_toLeftOf="@+id/tv_fat"
                     app:layout_constraintTop_toBottomOf="@+id/tv_fat" />
@@ -81,7 +82,7 @@
                 <TextView
                     android:id="@+id/tv_proteins_calculated"
                     style="@style/nutrition_input"
-                    android:layout_marginTop="@dimen/grid_size"
+                    android:layout_marginTop="@dimen/half_grid_size"
                     android:background="@drawable/background_protein"
                     app:layout_constraintLeft_toLeftOf="@+id/tv_prot"
                     app:layout_constraintTop_toBottomOf="@+id/tv_prot" />
@@ -108,6 +109,6 @@
         android:layout_centerHorizontal="true"
         android:layout_gravity="bottom|center"
         ads:adSize="BANNER"
-        ads:adUnitId="ca-app-pub-3940256099942544/6300978111" />
+        ads:adUnitId="@string/GOOGLE_ADMOB_KEY" />
 
 </android.support.design.widget.CoordinatorLayout>

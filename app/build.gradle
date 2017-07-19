@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        dummyUdacityKey {
+            keyAlias 'udacity'
+            keyPassword 'udacity'
+            storeFile file('E:/Studium/MasterIV/androidDeveloper/NutritionAdvisor/dummyUdacityKey.jks')
+            storePassword 'udacity'
+        }
+    }
     compileSdkVersion 25
     buildToolsVersion "26.0.0"
     defaultConfig {
@@ -16,42 +24,46 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.dummyUdacityKey
         }
     }
     buildTypes.each {
         //it.buildConfigField 'String', 'FAT_SECRET_DB_API_CONSUMER_KEY', fatSecretApiConsumerKey
         //it.buildConfigField 'String', 'FAT_SECRET_DB_API_SHARED_SECRET', fatSecretApiSharedSecret
         it.buildConfigField 'String', 'USDA_DB_API_KEY', ndbApiKey
+        it.resValue 'string', 'USDA_DB_API_KEY', ndbApiKey
+        it.buildConfigField 'String', "GOOGLE_ANALYTICS_KEY", googleAnalyticsKey
+        it.resValue 'string', "GOOGLE_ANALYTICS_KEY", googleAnalyticsKey
+        it.buildConfigField 'String', "GOOGLE_ADMOB_KEY", googleAdMobKey
+        it.resValue 'string', "GOOGLE_ADMOB_KEY", googleAdMobKey
     }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-
     /*compile('com.sch.calendar:easy-calendar:1.0.1') {
-        exclude group: "com.android.support", module: 'design'
-    }*/
+                                exclude group: "com.android.support", module: 'design'
+                            }*/
     //https://github.com/pakerfeldt/okhttp-signpost
     /*compile 'se.akerfeldt:okhttp-signpost:1.1.0'
-    compile 'com.squareup.okhttp3:okhttp:3.0.0-RC1'
-    compile 'oauth.signpost:signpost-core:1.2.1.2'*/
+                            compile 'com.squareup.okhttp3:okhttp:3.0.0-RC1'
+                            compile 'oauth.signpost:signpost-core:1.2.1.2'*/
     //http://square.github.io/retrofit/
-
     //calendar in the UserDayOverviewActivity.
     compile('com.sch.calendar:easy-calendar:1.0.1') {
         exclude group: 'com.android.support', module: 'gridlayout'
     }
-
     //code helpers
     //use of network communication
     //for logging
     //easy content provider creation
     //code simplifier by annotations
     //adMob google play service
-
+    //google analytics
+    compile 'com.google.android.gms:play-services-analytics:11.0.1'
     //annotation processors for previous added libraries
     compile 'com.android.support:gridlayout-v7:25.3.1'
     compile 'com.google.guava:guava:22.0-android'

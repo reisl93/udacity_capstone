@@ -1,136 +1,167 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="advisor.nutrition.nutritionadvisor.ui.nutrition.calculator.NutritionCalculatorActivity">
+    android:id="@+id/root"
+    tools:context="advisor.nutrition.nutritionadvisor.ui.overview.UserDayOverviewActivity">
 
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/cl_nutrition_overview"
-        android:layout_width="0dp"
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/main.appbar"
+        android:layout_width="match_parent"
+        android:layout_height="88dp"
+        android:fitsSystemWindows="true"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/main.collapsing"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/main.toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_collapseMode="pin"
+                android:elevation="@dimen/elevation_level2"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/cl_nutrition_overview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorPrimary"
+                    android:paddingBottom="@dimen/grid_size"
+                    android:paddingRight="@dimen/grid_size"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/tv_user_plan"
+                        style="@style/nutrition_label"
+                        android:layout_height="wrap_content"
+                        android:text="@string/target"
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_carbs"
+                        app:layout_constraintLeft_toLeftOf="@+id/cl_nutrition_overview"
+                        app:layout_constraintTop_toBottomOf="@+id/et_carbs" />
+
+                    <TextView
+                        android:id="@+id/tv_carbs"
+                        style="@style/nutrition_label"
+                        android:text="@string/carbs"
+                        app:layout_constraintLeft_toLeftOf="@+id/et_carbs"
+                        app:layout_constraintRight_toRightOf="@+id/et_carbs"
+                        app:layout_constraintTop_toTopOf="@+id/cl_nutrition_overview" />
+
+                    <EditText
+                        android:id="@+id/et_carbs"
+                        style="@style/nutrition_input"
+                        android:layout_marginLeft="@dimen/grid_size"
+                        android:layout_marginStart="@dimen/grid_size"
+                        android:background="@drawable/background_carbs"
+                        app:layout_constraintLeft_toRightOf="@+id/tv_user_plan"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_carbs" />
+
+                    <TextView
+                        android:id="@+id/tv_fat"
+                        style="@style/nutrition_label"
+                        android:text="@string/fat"
+                        app:layout_constraintLeft_toLeftOf="@+id/et_fat"
+                        app:layout_constraintRight_toRightOf="@+id/et_fat"
+                        app:layout_constraintTop_toTopOf="@+id/cl_nutrition_overview" />
+
+                    <EditText
+                        android:id="@+id/et_fat"
+                        style="@style/nutrition_input"
+                        android:layout_marginLeft="@dimen/grid_size_2x"
+                        android:layout_marginStart="@dimen/grid_size_2x"
+                        android:background="@drawable/background_fat"
+                        app:layout_constraintLeft_toRightOf="@+id/et_carbs"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_fat" />
+
+                    <TextView
+                        android:id="@+id/tv_prot"
+                        style="@style/nutrition_label"
+                        android:text="@string/proteins"
+                        app:layout_constraintLeft_toLeftOf="@+id/et_prot"
+                        app:layout_constraintRight_toRightOf="@+id/et_prot"
+                        app:layout_constraintTop_toTopOf="@+id/cl_nutrition_overview" />
+
+                    <EditText
+                        android:id="@+id/et_prot"
+                        style="@style/nutrition_input"
+                        android:layout_marginLeft="@dimen/grid_size_2x"
+                        android:layout_marginStart="@dimen/grid_size_2x"
+                        android:background="@drawable/background_protein"
+                        app:layout_constraintLeft_toRightOf="@+id/et_fat"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_prot" />
+
+                    <TextView
+                        android:id="@+id/tv_calculated"
+                        style="@style/nutrition_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/plan"
+                        app:layout_constraintBottom_toTopOf="@+id/tv_carbs_calculated"
+                        app:layout_constraintLeft_toLeftOf="@+id/tv_user_plan"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_carbs_calculated" />
+
+                    <TextView
+                        android:id="@+id/tv_carbs_calculated"
+                        style="@style/nutrition_input"
+                        android:layout_marginTop="@dimen/grid_size"
+                        android:background="@drawable/background_carbs"
+                        app:layout_constraintLeft_toLeftOf="@+id/et_carbs"
+                        app:layout_constraintRight_toRightOf="@+id/et_carbs"
+                        app:layout_constraintTop_toBottomOf="@+id/et_carbs" />
+
+                    <TextView
+                        android:id="@+id/tv_fat_calculated"
+                        style="@style/nutrition_input"
+                        android:layout_marginTop="@dimen/grid_size"
+                        android:background="@drawable/background_fat"
+                        app:layout_constraintLeft_toLeftOf="@+id/et_fat"
+                        app:layout_constraintRight_toRightOf="@+id/et_fat"
+                        app:layout_constraintTop_toBottomOf="@+id/et_fat" />
+
+                    <TextView
+                        android:id="@+id/tv_proteins_calculated"
+                        style="@style/nutrition_input"
+                        android:layout_marginTop="@dimen/grid_size"
+                        android:background="@drawable/background_protein"
+                        app:layout_constraintLeft_toLeftOf="@+id/et_prot"
+                        app:layout_constraintRight_toRightOf="@+id/et_prot"
+                        app:layout_constraintTop_toBottomOf="@+id/et_prot" />
+
+                    <ImageButton
+                        android:id="@+id/ib_show_list"
+                        android:layout_width="42dp"
+                        android:layout_height="42dp"
+                        android:layout_marginLeft="@dimen/grid_size_2x"
+                        android:background="@drawable/background_accent"
+                        android:padding="10dp"
+                        android:scaleType="fitCenter"
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_proteins_calculated"
+                        app:layout_constraintRight_toRightOf="@+id/cl_nutrition_overview"
+                        app:layout_constraintTop_toTopOf="@+id/et_prot"
+                        app:srcCompat="@drawable/ic_list" />
+                </android.support.constraint.ConstraintLayout>
+            </android.support.v7.widget.Toolbar>
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_foods"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:elevation="@dimen/elevation_level2"
-        android:paddingBottom="@dimen/grid_size"
-        android:paddingLeft="@dimen/grid_size"
-        android:paddingRight="@dimen/grid_size"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/tv_user_plan"
-            style="@style/nutrition_label"
-            android:layout_height="wrap_content"
-            android:text="@string/target"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_carbs"
-            app:layout_constraintLeft_toLeftOf="@+id/cl_nutrition_overview"
-            app:layout_constraintTop_toBottomOf="@+id/et_carbs" />
-
-        <TextView
-            android:id="@+id/tv_carbs"
-            style="@style/nutrition_label"
-            android:text="@string/carbs"
-            app:layout_constraintLeft_toLeftOf="@+id/et_carbs"
-            app:layout_constraintRight_toRightOf="@+id/et_carbs"
-            app:layout_constraintTop_toTopOf="@+id/cl_nutrition_overview" />
-
-        <EditText
-            android:id="@+id/et_carbs"
-            style="@style/nutrition_input"
-            android:layout_marginLeft="@dimen/grid_size"
-            android:layout_marginStart="@dimen/grid_size"
-            android:background="@drawable/background_carbs"
-            app:layout_constraintLeft_toRightOf="@+id/tv_user_plan"
-            app:layout_constraintTop_toBottomOf="@+id/tv_carbs" />
-
-        <TextView
-            android:id="@+id/tv_fat"
-            style="@style/nutrition_label"
-            android:text="@string/fat"
-            app:layout_constraintLeft_toLeftOf="@+id/et_fat"
-            app:layout_constraintRight_toRightOf="@+id/et_fat"
-            app:layout_constraintTop_toTopOf="@+id/cl_nutrition_overview" />
-
-        <EditText
-            android:id="@+id/et_fat"
-            style="@style/nutrition_input"
-            android:layout_marginLeft="@dimen/grid_size_2x"
-            android:layout_marginStart="@dimen/grid_size_2x"
-            android:background="@drawable/background_fat"
-            app:layout_constraintLeft_toRightOf="@+id/et_carbs"
-            app:layout_constraintTop_toBottomOf="@+id/tv_fat" />
-
-        <TextView
-            android:id="@+id/tv_prot"
-            style="@style/nutrition_label"
-            android:text="@string/proteins"
-            app:layout_constraintLeft_toLeftOf="@+id/et_prot"
-            app:layout_constraintRight_toRightOf="@+id/et_prot"
-            app:layout_constraintTop_toTopOf="@+id/cl_nutrition_overview" />
-
-        <EditText
-            android:id="@+id/et_prot"
-            style="@style/nutrition_input"
-            android:layout_marginLeft="@dimen/grid_size_2x"
-            android:layout_marginStart="@dimen/grid_size_2x"
-            android:background="@drawable/background_protein"
-            app:layout_constraintLeft_toRightOf="@+id/et_fat"
-            app:layout_constraintTop_toBottomOf="@+id/tv_prot" />
-
-        <TextView
-            android:id="@+id/tv_calculated"
-            style="@style/nutrition_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/plan"
-            app:layout_constraintBottom_toTopOf="@+id/tv_carbs_calculated"
-            app:layout_constraintLeft_toLeftOf="@+id/tv_user_plan"
-            app:layout_constraintTop_toBottomOf="@+id/tv_carbs_calculated" />
-
-        <TextView
-            android:id="@+id/tv_carbs_calculated"
-            style="@style/nutrition_input"
-            android:layout_marginTop="@dimen/grid_size"
-            android:background="@drawable/background_carbs"
-            app:layout_constraintLeft_toLeftOf="@+id/et_carbs"
-            app:layout_constraintRight_toRightOf="@+id/et_carbs"
-            app:layout_constraintTop_toBottomOf="@+id/et_carbs" />
-
-        <TextView
-            android:id="@+id/tv_fat_calculated"
-            style="@style/nutrition_input"
-            android:layout_marginTop="@dimen/grid_size"
-            android:background="@drawable/background_fat"
-            app:layout_constraintLeft_toLeftOf="@+id/et_fat"
-            app:layout_constraintRight_toRightOf="@+id/et_fat"
-            app:layout_constraintTop_toBottomOf="@+id/et_fat" />
-
-        <TextView
-            android:id="@+id/tv_proteins_calculated"
-            style="@style/nutrition_input"
-            android:layout_marginTop="@dimen/grid_size"
-            android:background="@drawable/background_protein"
-            app:layout_constraintLeft_toLeftOf="@+id/et_prot"
-            app:layout_constraintRight_toRightOf="@+id/et_prot"
-            app:layout_constraintTop_toBottomOf="@+id/et_prot" />
-
-        <ImageButton
-            android:id="@+id/ib_show_list"
-            android:layout_width="42dp"
-            android:layout_height="42dp"
-            android:layout_marginLeft="@dimen/grid_size_2x"
-            android:background="@drawable/background_accent"
-            android:padding="10dp"
-            android:scaleType="fitCenter"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_proteins_calculated"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/et_prot"
-            app:srcCompat="@drawable/ic_list" />
-
-    </android.support.constraint.ConstraintLayout>
-
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_add_food"
@@ -138,17 +169,6 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/fab_margin"
         app:layout_anchorGravity="bottom|right|end"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_anchor="@+id/rv_foods"
         app:srcCompat="@drawable/ic_add_white" />
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_foods"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cl_nutrition_overview" />
-
-</android.support.constraint.ConstraintLayout>
+</android.support.design.widget.CoordinatorLayout>
