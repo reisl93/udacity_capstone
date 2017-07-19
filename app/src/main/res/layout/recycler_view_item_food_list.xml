@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_margin="@dimen/grid_size"
+    android:layout_height="wrap_content">
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/grid_size">
+        <TextView
+            android:id="@+id/tv_food_name"
+            style="@style/text_normal"
+            android:layout_width="0dp"
+            android:layout_marginRight="@dimen/grid_size"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/tv_portion"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Awesome chicken churry" />
+
+        <TextView
+            android:id="@+id/tv_measure"
+            style="@style/text_normal"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_food_name"
+            tools:text="g" />
+
+        <TextView
+            android:id="@+id/tv_portion"
+            style="@style/text_normal"
+            app:layout_constraintRight_toLeftOf="@+id/tv_measure"
+            app:layout_constraintTop_toTopOf="@+id/tv_food_name"
+            tools:text="100" />
+    </android.support.constraint.ConstraintLayout>
+</android.support.v7.widget.CardView>

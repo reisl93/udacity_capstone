@@ -12,7 +12,7 @@
     <string name="carbs">Carbs</string>
     <string name="fat">Fat</string>
     <string name="proteins">Proteins</string>
-    <string formatted="true" name="portion_size_s_s">per %1$s%2$s</string>
+    <string name="portion_size_s_s" formatted="true">per %1$s%2$s</string>
     <string name="preferencePortions">Portions:</string>
     <string name="add_portion_to_this_food_for_selected_day">add portion to this food for selected date</string>
     <string name="subtract_one_portion_to_this_food_for_selected_day">Subtract one portion to this food for selected date</string>

@@ -47,7 +47,6 @@ public class UserDayOverviewActivity extends AppCompatActivity implements OnDate
 
         mCalendarAdapter = new CalendarAdapter(R.layout.calendar_item_day_overview);
         calendarViewCalendar.setVagueAdapter(mCalendarAdapter);
-      //  calendarViewCalendar.setScaleEnable(true);
         calendarViewCalendar.setOnDateClickedListener(this);
 
         userSpinnerAdapter = new UserSpinnerAdapter(this);

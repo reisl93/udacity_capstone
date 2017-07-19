@@ -7,17 +7,17 @@
     tools:context="advisor.nutrition.nutritionadvisor.ui.nutrition.calculator.NutritionCalculatorActivity">
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/t_nutrition_selector"
+        android:id="@+id/cl_nutrition_overview"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
+        android:elevation="@dimen/elevation_level2"
+        android:paddingBottom="@dimen/grid_size"
         android:paddingLeft="@dimen/grid_size"
         android:paddingRight="@dimen/grid_size"
-        android:paddingBottom="@dimen/grid_size"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:elevation="@dimen/elevation_level2">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/tv_user_plan"
@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:text="@string/target"
             app:layout_constraintBottom_toBottomOf="@+id/tv_carbs"
-            app:layout_constraintLeft_toLeftOf="@+id/t_nutrition_selector"
+            app:layout_constraintLeft_toLeftOf="@+id/cl_nutrition_overview"
             app:layout_constraintTop_toBottomOf="@+id/et_carbs" />
 
         <TextView
@@ -34,7 +34,7 @@
             android:text="@string/carbs"
             app:layout_constraintLeft_toLeftOf="@+id/et_carbs"
             app:layout_constraintRight_toRightOf="@+id/et_carbs"
-            app:layout_constraintTop_toTopOf="@+id/t_nutrition_selector" />
+            app:layout_constraintTop_toTopOf="@+id/cl_nutrition_overview" />
 
         <EditText
             android:id="@+id/et_carbs"
@@ -51,7 +51,7 @@
             android:text="@string/fat"
             app:layout_constraintLeft_toLeftOf="@+id/et_fat"
             app:layout_constraintRight_toRightOf="@+id/et_fat"
-            app:layout_constraintTop_toTopOf="@+id/t_nutrition_selector" />
+            app:layout_constraintTop_toTopOf="@+id/cl_nutrition_overview" />
 
         <EditText
             android:id="@+id/et_fat"
@@ -68,7 +68,7 @@
             android:text="@string/proteins"
             app:layout_constraintLeft_toLeftOf="@+id/et_prot"
             app:layout_constraintRight_toRightOf="@+id/et_prot"
-            app:layout_constraintTop_toTopOf="@+id/t_nutrition_selector" />
+            app:layout_constraintTop_toTopOf="@+id/cl_nutrition_overview" />
 
         <EditText
             android:id="@+id/et_prot"
@@ -115,16 +115,21 @@
             app:layout_constraintLeft_toLeftOf="@+id/et_prot"
             app:layout_constraintRight_toRightOf="@+id/et_prot"
             app:layout_constraintTop_toBottomOf="@+id/et_prot" />
-    </android.support.constraint.ConstraintLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_foods"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@+id/t_nutrition_selector"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        <ImageButton
+            android:id="@+id/ib_show_list"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_marginLeft="@dimen/grid_size_2x"
+            android:background="@drawable/background_accent"
+            android:padding="10dp"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_proteins_calculated"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/et_prot"
+            app:srcCompat="@drawable/ic_list" />
+
+    </android.support.constraint.ConstraintLayout>
 
 
     <android.support.design.widget.FloatingActionButton
@@ -136,5 +141,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:srcCompat="@drawable/ic_add_white" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_foods"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cl_nutrition_overview" />
 
 </android.support.constraint.ConstraintLayout>

@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="advisor.nutrition.nutritionadvisor">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".NutritionAdvisorApp"
@@ -28,14 +28,22 @@
         </activity>
         <activity
             android:name=".ui.add.user.AddUserActivity"
-            android:parentActivityName=".ui.overview.UserDayOverviewActivity"
             android:excludeFromRecents="true"
+            android:parentActivityName=".ui.overview.UserDayOverviewActivity"
             android:theme="@style/Theme.AppCompat.Dialog">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.overview.UserDayOverviewActivity" />
         </activity>
-        <activity android:name=".ui.add.food.AddFoodActivity"
+        <activity
+            android:name=".ui.add.food.AddFoodActivity"
+            android:parentActivityName=".ui.nutrition.calculator.NutritionCalculatorActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.nutrition.calculator.NutritionCalculatorActivity" />
+        </activity>
+        <activity
+            android:name=".ui.food.list.FoodListActivity"
             android:parentActivityName=".ui.nutrition.calculator.NutritionCalculatorActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -51,14 +59,17 @@
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
+
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/foodlist_widget_info" />
         </receiver>
+
         <service android:name=".ui.widget.FoodListUpdateService" />
         <service
             android:name=".ui.widget.FoodListWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
+
     </application>
 
 </manifest>

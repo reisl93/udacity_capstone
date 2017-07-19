@@ -6,6 +6,6 @@
     android:id="@+id/tv_user_name"
     android:textSize="@dimen/textSize_normal"
     android:padding="@dimen/grid_size"
-    android:background="@color/colorPrimary"
-    android:textColor="@android:color/white"
+    android:background="@drawable/background_white"
+    android:textColor="@color/colorPrimaryText"
     tools:text="some name" />

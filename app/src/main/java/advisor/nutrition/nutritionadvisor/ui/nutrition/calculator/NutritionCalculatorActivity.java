@@ -26,10 +26,10 @@ import advisor.nutrition.nutritionadvisor.provider.NutritionAdvisorProvider;
 import advisor.nutrition.nutritionadvisor.provider.UserDayColumns;
 import advisor.nutrition.nutritionadvisor.ui.UiUtils;
 import advisor.nutrition.nutritionadvisor.ui.add.food.AddFoodActivity;
+import advisor.nutrition.nutritionadvisor.ui.food.list.FoodListActivity;
 import advisor.nutrition.nutritionadvisor.ui.loaders.UserDayFoodsLoader;
 import advisor.nutrition.nutritionadvisor.ui.loaders.UserDayLoader;
 import advisor.nutrition.nutritionadvisor.ui.widget.FoodListUpdateService;
-import advisor.nutrition.nutritionadvisor.ui.widget.FoodListWidgetService;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -76,8 +76,8 @@ public class NutritionCalculatorActivity extends AppCompatActivity implements Va
             date = intent.getStringExtra(EXTRA_DATE);
             Timber.d("open nutrition calculator for user %s and date %s", userName, date);
         } else {
+            finish();
             Timber.e("no extras defined");
-            Toast.makeText(this, "Internal Error occurred", Toast.LENGTH_LONG).show();
         }
 
         mDay = new Day();
@@ -97,26 +97,33 @@ public class NutritionCalculatorActivity extends AppCompatActivity implements Va
 
     @Override
     public void valueChanged() {
+        recalculatePortions();
+    }
+
+    private void recalculatePortions() {
         Timber.d("valueChanged - entry");
         if(mAasyncCalculatorTask != null){
             Timber.d("valueChanged - canceling old task");
             mAasyncCalculatorTask.cancel(true);
             updateCaluclatedNutritionUI();
         }
-        mAasyncCalculatorTask = new AsyncTask<Void, Void, Void>() {
+        if (mDay != null && (mDay.getTargetCarbs() > 0 || mDay.getTargetFat() > 0 || mDay.getTargetProteins() > 0)
+                && mDay.getFoodList().size() > 0) {
+            mAasyncCalculatorTask = new AsyncTask<Void, Void, Void>() {
 
-            @Override
-            protected Void doInBackground(Void... params) {
-                new CalculateForDay(NutritionCalculatorActivity.this, mDay).startCalculating();
-                return null;
-            }
+                @Override
+                protected Void doInBackground(Void... params) {
+                    new CalculateForDay(NutritionCalculatorActivity.this, mDay).startCalculating();
+                    return null;
+                }
 
-            @Override
-            protected void onPostExecute(Void aVoid) {
-                updateTargetCalculatedNutritionsUi();
-            }
-        };
-        mAasyncCalculatorTask.execute();
+                @Override
+                protected void onPostExecute(Void aVoid) {
+                    updateTargetCalculatedNutritionsUi();
+                }
+            };
+            mAasyncCalculatorTask.execute();
+        }
     }
 
     private void updateCaluclatedNutritionUI() {
@@ -223,6 +230,7 @@ public class NutritionCalculatorActivity extends AppCompatActivity implements Va
             mDay.setTargetCarbs(Integer.valueOf(editTextCarbs.getText().toString()));
             Timber.d("Value of target carbs changed to %d", mDay.getTargetCarbs());
             updateTargetNutritients(UserDayColumns.TARGET_CARBS , mDay.getTargetCarbs());
+            recalculatePortions();
         }
     }
 
@@ -232,6 +240,7 @@ public class NutritionCalculatorActivity extends AppCompatActivity implements Va
             mDay.setTargetFat(Integer.valueOf(editTextFat.getText().toString()));
             Timber.d("Value of target fat changed to %d", mDay.getTargetFat());
             updateTargetNutritients(UserDayColumns.TARGET_FAT , mDay.getTargetFat());
+            recalculatePortions();
         }
     }
 
@@ -241,6 +250,7 @@ public class NutritionCalculatorActivity extends AppCompatActivity implements Va
             mDay.setTargetProteins(Integer.valueOf(editTextProteins.getText().toString()));
             Timber.d("Value of target proteins changed to %d", mDay.getTargetProteins());
             updateTargetNutritients(UserDayColumns.TARGET_PROTEINS , mDay.getTargetProteins());
+            recalculatePortions();
         }
     }
 
@@ -259,6 +269,14 @@ public class NutritionCalculatorActivity extends AppCompatActivity implements Va
             DataProviderUtils.updateWidgetFoodList(NutritionCalculatorActivity.this, mDay);
             FoodListUpdateService.startActionUpdateFoodListWidgets(this);
         }
+    }
+
+    @OnClick(R.id.ib_show_list)
+    public void showListClicked(){
+        final Intent startFoodListActivity = new Intent(this, FoodListActivity.class);
+        startFoodListActivity.putExtra(FoodListActivity.EXTRA_USER_NAME, mDay.getUserName());
+        startFoodListActivity.putExtra(FoodListActivity.EXTRA_DATE, mDay.getDate());
+        startActivity(startFoodListActivity);
     }
 
     @OnClick(R.id.fab_add_food)
