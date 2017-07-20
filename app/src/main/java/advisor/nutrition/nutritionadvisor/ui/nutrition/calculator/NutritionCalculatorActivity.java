@@ -258,7 +258,10 @@ public class NutritionCalculatorActivity extends AppCompatActivity implements Va
     }
 
     @OnTextChanged(value = R.id.et_carbs, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
-    public void targetCarbsChanged(android.text.Editable ignored){
+    public void targetCarbsChanged(android.text.Editable text){
+        if (text.length() == 0){
+            text.append("0");
+        }
         if (!nutritionUiUpdateFlag) {
             mDay.setTargetCarbs(Integer.valueOf(editTextCarbs.getText().toString()));
             Timber.d("Value of target carbs changed to %d", mDay.getTargetCarbs());
@@ -268,7 +271,10 @@ public class NutritionCalculatorActivity extends AppCompatActivity implements Va
     }
 
     @OnTextChanged(value = R.id.et_fat, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
-    public void targetFatChanged(android.text.Editable ignored){
+    public void targetFatChanged(android.text.Editable text){
+        if (text.length() == 0){
+            text.append("0");
+        }
         if (!nutritionUiUpdateFlag) {
             mDay.setTargetFat(Integer.valueOf(editTextFat.getText().toString()));
             Timber.d("Value of target fat changed to %d", mDay.getTargetFat());
@@ -278,7 +284,10 @@ public class NutritionCalculatorActivity extends AppCompatActivity implements Va
     }
 
     @OnTextChanged(value = R.id.et_prot, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
-    public void targetProteinsChanged(android.text.Editable ignored){
+    public void targetProteinsChanged(android.text.Editable text){
+        if (text.length() == 0){
+            text.append("0");
+        }
         if (!nutritionUiUpdateFlag) {
             mDay.setTargetProteins(Integer.valueOf(editTextProteins.getText().toString()));
             Timber.d("Value of target proteins changed to %d", mDay.getTargetProteins());

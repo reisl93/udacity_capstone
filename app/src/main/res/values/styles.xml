@@ -28,6 +28,7 @@
     </style>
 
     <style name="nutrition_input">
+        <item name="android:maxLength">4</item>
         <item name="android:layout_width">64dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">@dimen/textSize_normal</item>

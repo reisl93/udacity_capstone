@@ -70,7 +70,6 @@ public class AddFoodActivity extends AppCompatActivity implements FoodSelectedLi
             Timber.d("open nutrition calculator for user %s and date %s", mUserName, mDate);
         } else {
             Timber.e("not extras defined");
-            Toast.makeText(this, "Internal Error occurred", Toast.LENGTH_LONG).show();
         }
 
         foodsAdapter = new FoodsAdapter(this, this);
@@ -81,7 +80,7 @@ public class AddFoodActivity extends AppCompatActivity implements FoodSelectedLi
         mTracker = ((NutritionAdvisorApp) getApplication()).getDefaultTracker();
         mTracker.setScreenName(AddFoodActivity.class.getSimpleName());
 
-        getSupportActionBar().setTitle("Search for food");
+        getSupportActionBar().setTitle(R.string.search_for_food);
 
         Timber.d("onCreate - exit");
     }
@@ -103,9 +102,9 @@ public class AddFoodActivity extends AppCompatActivity implements FoodSelectedLi
                 public void onFailure(@NonNull Call<Food[]> call, @NonNull Throwable t) {
                     updateUiLoadingTo(false);
                     if (t instanceof TimeoutException) {
-                        Toast.makeText(AddFoodActivity.this, "Search request timed out", Toast.LENGTH_LONG).show();
+                        Toast.makeText(AddFoodActivity.this, R.string.search_request_timed_out, Toast.LENGTH_LONG).show();
                     } else {
-                        Toast.makeText(AddFoodActivity.this, "Food not found", Toast.LENGTH_LONG).show();
+                        Toast.makeText(AddFoodActivity.this, R.string.food_not_found, Toast.LENGTH_LONG).show();
                     }
                 }
             });
@@ -118,7 +117,7 @@ public class AddFoodActivity extends AppCompatActivity implements FoodSelectedLi
 
         } else {
             Timber.d("user queried without any input data");
-            Toast.makeText(this, "please enter a search query", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.enter_search_query, Toast.LENGTH_SHORT).show();
         }
     }
 

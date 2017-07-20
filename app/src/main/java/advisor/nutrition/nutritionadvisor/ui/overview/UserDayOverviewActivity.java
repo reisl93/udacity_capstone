@@ -88,7 +88,7 @@ public class UserDayOverviewActivity extends AppCompatActivity implements OnDate
             startActivity(nutritionCalculatorActivityIntent);
         } else {
             Timber.i("no user selected, can't start food calculator");
-            Toast.makeText(this, "no user selected", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.no_user_selected, Toast.LENGTH_LONG).show();
         }
     }
 

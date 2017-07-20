@@ -61,7 +61,6 @@ public class FoodListActivity extends AppCompatActivity {
             Timber.d("open food list for user %s and date %s", mUserName, mDate);
         } else {
             Timber.e("not extras defined");
-            Toast.makeText(this, "Internal Error occurred", Toast.LENGTH_LONG).show();
         }
 
         getSupportActionBar().setElevation(0);

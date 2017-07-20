@@ -9,11 +9,16 @@
     <string name="portion_size_s_s" formatted="true">per %1$s%2$s</string>
     <string name="add_portion_to_this_food_for_selected_day">add portion to this food for selected date</string>
     <string name="subtract_one_portion_to_this_food_for_selected_day">Subtract one portion to this food for selected date</string>
-    <string name="search_for_food">search for food</string>
+    <string name="search_for_food">Search for food</string>
     <string name="target">Target:</string>
     <string name="calculated">Calculated:</string>
     <string name="plan">Plan:</string>
     <string name="preference">Preference:</string>
     <string name="please_add_foods_for_today">please add food for today</string>
     <string name="show_list_of_foods">show list of foods</string>
+    <string name="search_request_timed_out">Search request timed out</string>
+    <string name="food_not_found">Food not found</string>
+    <string name="enter_search_query">please enter a search query</string>
+    <string name="no_user_selected">no user selected</string>
+    <string name="add_a_new_food">add a new food</string>
 </resources>
